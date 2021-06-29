@@ -1,7 +1,7 @@
 <template>
   <div class="contenedor">
     <h1 class="text-center">
-      Prueba para hacer un pull y push en github
+        Ingresa los correos de las personas con las que has tenido contacto los últimos días
     </h1>
     <br /><br />
     <form @submit.prevent="procesarFormulario">
