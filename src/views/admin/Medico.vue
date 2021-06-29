@@ -86,6 +86,7 @@
 
 <script>
 import axios from "axios";
+import Vue from 'vue';
 export default {
   name: "Medico",
   data() {
@@ -111,18 +112,25 @@ export default {
         })
         .then(function(response) {
           console.log(response);
-          location.reload();
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.$toast.open({
+Vue.$toast.open({
         message: "registro existoso recarga la pagina",
         type: "success",
         duration: 5000,
         dismissible: true,
       });
-      location.reload();
+
+        })
+        .catch(function(error) {
+          console.log(error);
+           Vue.$toast.open({
+        message: "algo succedio",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+        });
+    
+setTimeout(function(){location.reload()},5000);
     },
     deleteForm() {
       axios({
@@ -138,18 +146,24 @@ export default {
       })
         .then(function(response) {
           console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.$toast.open({
+          Vue.$toast.open({
         message: "borrado existoso recarga la pagina",
         type: "error",
         duration: 5000,
         dismissible: true,
       });
-      setTimeout(location.reload, 5000);
-      // location.reload();
+
+        })
+        .catch(function(error) {
+          console.log(error);
+           Vue.$toast.open({
+        message: "algo succedio",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+        });
+     setTimeout(function(){location.reload()},5000);
     },
     updateForm() {
       axios
@@ -162,17 +176,23 @@ export default {
         })
         .then(function(response) {
           console.log(response);
-          location.reload();
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.$toast.open({
-        message: "actualizacion existosa recarga la pagina",
+             Vue.$toast.open({
+        message: "actualizacion existosa, recarga la pagina",
         type: "warning",
         duration: 5000,
         dismissible: true,
       });
+        })
+        .catch(function(error) {
+          console.log(error);
+           Vue.$toast.open({
+        message: "algo succedio",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+        });
+     setTimeout(function(){location.reload()},5000);
     },
   },
   mounted() {

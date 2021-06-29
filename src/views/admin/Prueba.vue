@@ -26,6 +26,16 @@
           <input type="text" class="form-control" v-model="documento" />
         </div>
         <div class="col">
+          <label>Status</label>
+          <select name="status" v-model="status">
+            <option value="resultado">resultado</option>
+            <option value="correos">correos</option>
+            <option value="cerrado">cerrado</option>
+            <option value="abierto">abierta</option>
+            <option value="procesando">procesando</option>
+          </select>
+        </div>
+        <div class="col">
           <label>Id medico</label>
           <input type="text" class="form-control" v-model="id_medico" />
         </div>
@@ -57,6 +67,7 @@
                 <th>Tipo de prueba</th>
                 <th>Resultado</th>
                 <th>Documento</th>
+                <th>Status</th>
                 <th>Id medico</th>
                 <th>Id usuario</th>
               </tr>
@@ -71,6 +82,7 @@
 
 <script>
 import axios from "axios";
+import Vue from 'vue';
 export default {
   name: "Prueba",
   data() {
@@ -79,6 +91,7 @@ export default {
       tipo_prueba: "",
       resultado: "",
       documento: "",
+      status:"",
       id_medico: "",
       id_users: "",
       dataTable: null,
@@ -91,23 +104,31 @@ export default {
           tipo_prueba: this.tipo_prueba,
           resultado: this.resultado,
           documento: this.documento,
+          status:this.status,
           id_medico: this.id_medico,
           id_users: this.id_users,
         })
         .then(function(response) {
           console.log(response);
-          location.reload();
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.$toast.open({
+           Vue.$toast.open({
         message: "registro existoso recarga la pagina",
         type: "success",
         duration: 5000,
         dismissible: true,
       });
-      location.reload();
+
+        })
+        .catch(function(error) {
+          console.log(error);
+          Vue.$toast.open({
+        message: "algo succedio",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+        });
+    
+setTimeout(function(){location.reload()},5000);
     },
     deleteForm() {
       axios({
@@ -117,24 +138,34 @@ export default {
           tipo_prueba: this.tipo_prueba,
           resultado: this.resultado,
           documento: this.documento,
+          status: this.status,
           id_medico: this.id_medico,
           id_users: this.id_users,
         },
       })
         .then(function(response) {
           console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.$toast.open({
+
+ Vue.$toast.open({
         message: "borrado existoso recarga la pagina",
         type: "error",
         duration: 5000,
         dismissible: true,
       });
-      setTimeout(location.reload, 5000);
-      // location.reload();
+
+        })
+        .catch(function(error) {
+          console.log(error);
+           Vue.$toast.open({
+        message: "algo succedio",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+
+        });
+  
+setTimeout(function(){location.reload()},5000);
     },
     updateForm() {
       axios
@@ -142,22 +173,30 @@ export default {
           tipo_prueba: this.tipo_prueba,
           resultado: this.resultado,
           documento: this.documento,
+          status: this.status,
           id_medico: this.id_medico,
           id_users: this.id_users,
         })
         .then(function(response) {
           console.log(response);
-          location.reload();
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.$toast.open({
-        message: "actualizacion existosa recarga la pagina",
+             Vue.$toast.open({
+        message: "actualizacion existosa, recarga la pagina",
         type: "warning",
         duration: 5000,
         dismissible: true,
       });
+        })
+        .catch(function(error) {
+          console.log(error);
+          
+ Vue.$toast.open({
+        message: "algo succedio",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+        });
+      setTimeout(function(){location.reload()},5000);
     },
   },
   mounted() {
@@ -178,6 +217,7 @@ export default {
               prueba.tipo_prueba,
               prueba.resultado,
               prueba.documento,
+              prueba.status,
               prueba.id_medico,
               prueba.id_users,
             ])

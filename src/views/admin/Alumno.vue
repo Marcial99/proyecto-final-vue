@@ -42,20 +42,7 @@
         </div>
         <div class="col">
           <label>Semestre</label>
-          <select name="semestre" v-model="semestre">
-            <option value="1">semestre 1</option>
-            <option value="2">semestre 2</option>
-            <option value="3">semestre 3</option>
-            <option value="4">semestre 4</option>
-            <option value="5">semestre 5</option>
-            <option value="6">semestre 6</option>
-            <option value="7">semestre 7</option>
-            <option value="8">semestre 8</option>
-            <option value="9">semestre 9</option>
-            <option value="10">semestre 10</option>
-            <option value="11">semestre 11</option>
-            <option value="12">semestre 12</option>
-          </select>
+         <input type="number" max="12" min="1" step="1" v-model="semestre" class="form-control">
         </div>
         <div class="col">
           <label>Clave usuario</label>
@@ -64,6 +51,10 @@
         <div class="col">
           <label>Clave carrera</label>
           <input type="text" class="form-control" v-model="id_carrera" />
+        </div>
+        <div class="col">
+          <label>Correo</label>
+          <input type="email" class="form-control" v-model="email" />
         </div>
       </div>
 
@@ -93,6 +84,7 @@
                 <th>Alumno semestre</th>
                 <th>Alumno id_users</th>
                 <th>Alumno id_carrera</th>
+                <th>Alumno email</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -105,6 +97,7 @@
 
 <script>
 import axios from "axios";
+import Vue from 'vue';
 export default {
   name: "Alumno",
   data() {
@@ -116,6 +109,7 @@ export default {
       semestre: "",
       id_users: "",
       id_carrera: "",
+      email:"",
       dataTable: null,
     };
   },
@@ -130,21 +124,29 @@ export default {
           semestre: this.semestre,
           id_users: this.id_users,
           id_carrera: this.id_carrera,
+          email:this.email,
         })
         .then(function(response) {
           console.log(response);
-          location.reload();
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.$toast.open({
+           Vue.$toast.open({
         message: "registro existoso recarga la pagina",
         type: "success",
         duration: 5000,
         dismissible: true,
       });
-      location.reload();
+        })
+        .catch(function(error) {
+          console.log(error);
+           Vue.$toast.open({
+        message: "algo succedio",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+        });
+     
+    
+      setTimeout(function(){location.reload()},5000)
     },
     deleteForm() {
       axios({
@@ -157,22 +159,29 @@ export default {
           semestre: this.semestre,
           id_users: this.id_users,
           id_carrera: this.id_carrera,
+          email: this.email,
         },
       })
         .then(function(response) {
           console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.$toast.open({
+            Vue.$toast.open({
         message: "borrado existoso recarga la pagina",
         type: "error",
         duration: 5000,
         dismissible: true,
       });
-      setTimeout(location.reload, 5000);
-      // location.reload();
+        })
+        .catch(function(error) {
+          console.log(error);
+             Vue.$toast.open({
+        message: "algo succedio",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+        });
+    
+     setTimeout(function(){location.reload()},5000)
     },
     updateForm() {
       axios
@@ -184,20 +193,27 @@ export default {
           semestre: this.semestre,
           id_users: this.id_users,
           id_carrera: this.id_carrera,
+          email: this.email,
         })
         .then(function(response) {
           console.log(response);
-          location.reload();
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.$toast.open({
-        message: "actualizacion existosa recarga la pagina",
+           Vue.$toast.open({
+        message: "actualizacion existosa, recarga la pagina",
         type: "warning",
         duration: 5000,
         dismissible: true,
       });
+        })
+        .catch(function(error) {
+          console.log(error);
+             Vue.$toast.open({
+        message: "algo succedio",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+        });
+     setTimeout(function(){location.reload()},5000)
     },
   },
   mounted() {
@@ -221,6 +237,7 @@ export default {
               alumno.semestre,
               alumno.id_users,
               alumno.id_carrera,
+              alumno.email
             ])
             .draw(false);
         });

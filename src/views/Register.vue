@@ -50,6 +50,57 @@
               class="alert-danger"
             >{{errors.first('password')}}</div>
           </div>
+           <div class="form-group">
+            <label>No control.</label>
+            <input
+              v-model="alumno.no_control"
+              type="text"
+              class="form-control"
+              name="no_control"
+              maxlength="8"
+              required
+            />
+            <label>Nombre.</label>
+            <input
+              v-model="alumno.nombre"
+              type="text"
+              class="form-control"
+              name="nombre"
+              required
+            />
+            <label for="password">Apellido paterno.</label>
+            <input
+              v-model="alumno.a_paterno"
+              type="text"
+              class="form-control"
+              name="a_paterno"
+              required
+            />
+            <label for="password">Apellido materno.</label>
+            <input
+              v-model="alumno.a_materno"
+              type="text"
+              class="form-control"
+              name="a_materno"
+              required
+            />
+            <label for="password">Semestre.</label>
+            <input
+              v-model="alumno.semestre"
+              type="number"
+              class="form-control"
+              name="semestre"
+              min="1"
+              max="12"
+              step="1"
+              required
+            />
+            <label for="password">Carrera.</label>
+            <select v-model="carrera.id" class="form-select" required>
+<option v-for="c in carreras" v-bind:value="c">{{carrera.nombre_carrera[c-1]}}</option>
+</select>
+<p>{{carrera.id}}</p>
+          </div>
           <div class="form-group">
             <button class="btn btn-primary btn-block">Sign Up</button>
           </div>
@@ -67,7 +118,7 @@
 
 <script>
 import User from '../models/user';
-
+import axios from 'axios';
 export default {
   name: 'Register',
   data() {
@@ -75,7 +126,24 @@ export default {
       user: new User('', '', ''),
       submitted: false,
       successful: false,
-      message: ''
+      message: '',
+      alumno:{
+        no_control:"",
+        nombre: "",
+        a_paterno: "",
+        a_materno:"",
+        semestre: "",
+        id_carrera: "",
+        id_users: "",
+        email: "",
+      },
+      
+      carreras:[],
+      names:[],
+      carrera:{
+        id:"",
+        nombre_carrera:""
+      }
     };
   },
   computed: {
@@ -87,8 +155,43 @@ export default {
     if (this.loggedIn) {
       this.$router.push('/profile');
     }
+    fetch("https://proyecto-tedw.herokuapp.com/carreras")
+      .then((res) => res.json())
+      .then((data) => {
+        data.forEach((item) => {
+          this.carreras.push(item.id_carrera);
+          this.names.push(item.carrera);
+        });
+this.carrera.id=this.carreras;
+ this.carrera.nombre_carrera=this.names;
+      });
   },
   methods: {
+     submitForm(){
+     console.log("mensaje enviado")
+      axios.post("https://proyecto-tedw.herokuapp.com/alumnos",{
+        no_control: this.alumno.no_control,
+        nombre: this.alumno.nombre,
+        a_paterno: this.alumno.a_paterno,
+        a_materno: this.alumno.a_materno,
+        semestre: this.alumno.semestre,
+        id_carrera: this.carrera.id,
+        email:this.user.email
+      })
+      .then(res => {
+        console.log(res)
+          this.$toast.open({
+        message:"usuario registrado",
+        type: "success",
+        duration: 5000,
+        dismissible: true,
+      });
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+      
+    },
     handleRegister() {
       this.message = '';
       this.submitted = true;
@@ -98,6 +201,7 @@ export default {
             data => {
               this.message = data.message;
               this.successful = true;
+              this.submitForm();
             },
             error => {
               this.message =
@@ -121,7 +225,7 @@ label {
 }
 
 .card-container.card {
-  max-width: 350px !important;
+  max-width: 500px !important;
   padding: 40px 40px;
 }
 
