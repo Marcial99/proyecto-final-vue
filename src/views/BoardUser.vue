@@ -42,6 +42,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r1"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -78,6 +79,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r2"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -114,6 +116,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r3"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -150,6 +153,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r4"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -185,6 +189,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r5"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -221,6 +226,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r6"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -254,6 +260,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r7"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -287,6 +294,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r8"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -320,6 +328,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r9"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -355,6 +364,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r10"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -390,6 +400,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r11"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -426,6 +437,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r12"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -461,6 +473,7 @@
                 id="flexRadioDefault1"
                 value="true"
                 v-model="r13"
+                required
               />
               <label class="form-check-label" for="flexRadioDefault1">
                 si
@@ -496,12 +509,13 @@
               aria-describedby="helpId"
               placeholder="Escribe aqui.."
             />
-            <br>
+            <br />
             <select
               class="form-select"
               aria-label="Default select example"
               name="modalidad"
               v-model="modalidad"
+              required
             >
               <option selected>MODALIDAD DE LA ENCUESTA</option>
               <option value="obligatoria">obligatoria</option>
@@ -565,7 +579,7 @@ export default {
       content: "",
       resultado1: 0,
       resultadoFinal: "no sospechoso",
-      contador: 0
+      contador: 0,
     };
   },
   computed: {
@@ -664,7 +678,7 @@ export default {
         this.contador += 1;
       }
       if (this.contador > 5) {
-        this.resultadoFinal = "sospechoso"
+        this.resultadoFinal = "sospechoso";
       }
       axios
         .post("https://proyecto-tedw.herokuapp.com/encuestas", {
@@ -692,6 +706,23 @@ export default {
           this.response = response.data;
           this.success = "Data saved successfully";
           this.response = JSON.stringify(response, null, 2);
+          (this.modalidad = ""),
+            (this.r1 = ""),
+            (this.r2 = ""),
+            (this.r3 = ""),
+            (this.r4 = ""),
+            (this.r5 = ""),
+            (this.r6 = ""),
+            (this.r7 = ""),
+            (this.r8 = ""),
+            (this.r9 = ""),
+            (this.r10 = ""),
+            (this.r11 = ""),
+            (this.r12 = ""),
+            (this.r13 = ""),
+            (this.r14 = ""),
+            (this.resultadoFinal = ""),
+            (this.resultado1 = 0);
         })
         .catch((error) => {
           console.log(error);
