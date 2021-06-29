@@ -1,0 +1,182 @@
+<template>
+  <div>
+    <div id="app" class="container border shadow mb-4">
+      <h3 class="mt-3">Add users</h3>
+      <hr />
+      <div class="row mb-3">
+        <div class="col">
+          <label>Nombre de usuario</label>
+          <input type="text" class="form-control" v-model="username" />
+        </div>
+        <div class="col">
+          <label>Correo</label>
+          <input type="text" class="form-control" v-model="email" />
+        </div>
+        <div class="col">
+          <label>Contraseña</label>
+          <input type="text" class="form-control" v-model="password" />
+        </div>
+        <div class="col">
+          <label>Fecha de creacion</label>
+          <input type="date" class="form-control" v-model="createdAt" />
+        </div>
+        <div class="col">
+          <label>Fecha de actualizacion</label>
+          <input type="date" class="form-control" v-model="updatedAt" />
+        </div>
+      </div>
+      <button class="btn btn-info mr-3" @click="submitForm">Add users</button>
+      <button class="btn btn-warning mr-3" @click="updateForm">
+        Update users
+      </button>
+      <button class="btn btn-danger mr-3" @click="deleteForm">
+        Delete users
+      </button>
+      <hr />
+
+      <div class="row mb-5">
+        <div class="col overflow-auto">
+          <table
+            id="user-table"
+            class="table display table-hover nowrap "
+            cellspacing="0"
+            width="100%"
+          >
+            <thead class="thead-dark">
+              <tr>
+                <th>Id usuario</th>
+                <th>Nombre usuario</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Fecha de creacion</th>
+                <th>Fecha de actualizacion</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+export default {
+  name: "Usuario",
+  data() {
+    return {
+      id: "",
+      username: "",
+      email: "",
+      password: "",
+      createdAt: "",
+      updatedAt: "",
+      dataTable: null,
+    };
+  },
+  methods: {
+    submitForm() {
+      axios
+        .post("https://proyecto-tedw.herokuapp.com/usuario", {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          createdAt: this.createdAt,
+          updatedAt: this.updatedAt,
+        })
+        .then(function(response) {
+          console.log(response);
+          location.reload();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      this.$toast.open({
+        message: "registro existoso recarga la pagina",
+        type: "success",
+        duration: 5000,
+        dismissible: true,
+      });
+      location.reload();
+    },
+    deleteForm() {
+      axios({
+        method: "delete",
+        url: "https://proyecto-tedw.herokuapp.com/usuario/" + this.id,
+        data: {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          createdAt: this.createdAt,
+          updatedAt: this.updatedAt,
+        },
+      })
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      this.$toast.open({
+        message: "borrado existoso recarga la pagina",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+      setTimeout(location.reload, 5000);
+      // location.reload();
+    },
+    updateForm() {
+      axios
+        .put("https://proyecto-tedw.herokuapp.com/usuario/" + this.id, {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          createdAt: this.createdAt,
+          updatedAt: this.updatedAt,
+        })
+        .then(function(response) {
+          console.log(response);
+          location.reload();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      this.$toast.open({
+        message: "actualizacion existosa recarga la pagina",
+        type: "warning",
+        duration: 5000,
+        dismissible: true,
+      });
+    },
+  },
+  mounted() {
+    let users = [];
+
+    this.dataTable = $("#user-table").DataTable({});
+    const url = "https://proyecto-tedw.herokuapp.com/usuario";
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        data.forEach((item) => {
+          users.push(item);
+        });
+        users.forEach((user) => {
+          this.dataTable.row
+            .add([
+              user.id,
+              user.username,
+              user.email,
+              user.password,
+              user.createdAt,
+              user.updatedAt,
+            ])
+            .draw(false);
+        });
+      });
+  },
+};
+</script>
+
+<style scoped></style>
