@@ -1,7 +1,7 @@
 <template>
   <div class="contenedor">
     <h1 class="text-center">
-      Ingresa los correos de las personas con las que has tenido contacto los últimos días
+      Prueba para hacer un pull y push en github
     </h1>
     <br /><br />
     <form @submit.prevent="procesarFormulario">
@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       correo: {
-        correos: []
+        correos: [],
       },
       id_prueba: 8,
       numero: 1,
@@ -62,7 +62,7 @@ export default {
       resultado: "positivo",
       documento: "resultados.pdf",
       id_medico: 2,
-      id_users: 6
+      id_users: 6,
     };
   },
 
@@ -70,50 +70,51 @@ export default {
     agregar() {
       this.numero += 1;
       console.log(this.numero);
-      console.log("correo: "+this.correo.correos);
+      console.log("correo: " + this.correo.correos);
     },
     procesarFormulario() {
-     console.log(this.id_prueba);
-     console.log(this.correo2);
-     for (let i = 0; i < this.correo.correos.length; i++) {
-       axios
-        .post("https://proyecto-tedw.herokuapp.com/traz", {
-          id_prueba: this.id_prueba,
-          correo: this.correo.correos[i],
+      console.log(this.id_prueba);
+      console.log(this.correo2);
+      for (let i = 0; i < this.correo.correos.length; i++) {
+        axios
+          .post("https://proyecto-tedw.herokuapp.com/traz", {
+            id_prueba: this.id_prueba,
+            correo: this.correo.correos[i],
+          })
+          .then(function(response) {
+            console.log(response);
+            // location.reload();
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+        this.$toast.open({
+          message: "Registro existoso",
+          type: "success",
+          duration: 5000,
+          dismissible: true,
+        });
+      }
+      this.updateForm();
+      // location.reload();
+    },
+    updateForm() {
+      axios
+        .put("https://proyecto-tedw.herokuapp.com/prueba/" + this.id_prueba, {
+          tipo_prueba: this.tipo_prueba,
+          resultado: this.resultado,
+          documento: this.documento,
+          id_medico: this.id_medico,
+          id_users: this.id_users,
+          status: "correos",
         })
         .then(function(response) {
           console.log(response);
-          // location.reload();
         })
         .catch(function(error) {
           console.log(error);
         });
-      this.$toast.open({
-        message: "Registro existoso",
-        type: "success",
-        duration: 5000,
-        dismissible: true,
-      });
-     }
-      this.updateForm()
-      // location.reload();
     },
-    updateForm(){
-axios.put('https://proyecto-tedw.herokuapp.com/prueba/'+this.id_prueba, {
-      tipo_prueba: this.tipo_prueba,
-      resultado: this.resultado,
-      documento: this.documento,
-      id_medico: this.id_medico,
-      id_users: this.id_users,
-      status:"correos"
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-    }
   },
   computed: {
     bloquear() {
