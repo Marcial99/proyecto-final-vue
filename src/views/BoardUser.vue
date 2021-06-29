@@ -496,6 +496,7 @@
               aria-describedby="helpId"
               placeholder="Escribe aqui.."
             />
+            <br>
             <select
               class="form-select"
               aria-label="Default select example"
@@ -516,11 +517,12 @@
         </button>
       </div>
     </form>
-    <h3>Data retrieved from server:</h3>
+    <!-- <p> {{id_usuario}} </p> -->
+    <!-- <h3>Data retrieved from server:</h3>
     <div class="alert alert-success" role="alert" v-if="success">
       <strong>{{ success }}</strong>
     </div>
-    <pre>{{ response }}</pre>
+    <pre>{{ response }}</pre> -->
   </div>
 </template>
 
@@ -562,6 +564,8 @@ export default {
       success: "",
       content: "",
       resultado1: 0,
+      resultadoFinal: "no sospechoso",
+      contador: 0
     };
   },
   computed: {
@@ -617,10 +621,55 @@ export default {
   },
   methods: {
     submitForm() {
+      if (this.r1 == "true") {
+        this.contador += 1;
+      }
+      if (this.r2 == "true") {
+        this.contador += 1;
+      }
+      if (this.r3 == "true") {
+        this.contador += 1;
+      }
+      if (this.r4 == "true") {
+        this.contador += 1;
+      }
+      if (this.r5 == "true") {
+        this.contador += 1;
+      }
+      if (this.r6 == "true") {
+        this.contador += 1;
+      }
+      if (this.r7 == "true") {
+        this.contador += 1;
+      }
+      if (this.r8 == "true") {
+        this.contador += 1;
+      }
+      if (this.r9 == "true") {
+        this.contador += 1;
+      }
+      if (this.r10 == "true") {
+        this.contador += 1;
+      }
+      if (this.r11 == "true") {
+        this.contador += 1;
+      }
+      if (this.r12 == "true") {
+        this.contador += 1;
+      }
+      if (this.r13 == "true") {
+        this.contador += 1;
+      }
+      if (this.r14 == "true") {
+        this.contador += 1;
+      }
+      if (this.contador > 5) {
+        this.resultadoFinal = "sospechoso"
+      }
       axios
         .post("https://proyecto-tedw.herokuapp.com/encuestas", {
           modalidad: this.modalidad,
-          id_usuario: this.id_usuario,
+          id_users: this.id_usuario,
           fecha: this.fecha,
           r1: this.r1,
           r2: this.r2,
@@ -636,7 +685,7 @@ export default {
           r12: this.r12,
           r13: this.r13,
           r14: this.r14,
-          resultado: this.resultado,
+          resultado: this.resultadoFinal,
         })
         .then((response) => {
           console.log(response);
@@ -648,7 +697,7 @@ export default {
           console.log(error);
         });
       this.$toast.open({
-        message: "registro existoso recarga la pagina",
+        message: "Registro existoso",
         type: "success",
         duration: 5000,
         dismissible: true,
