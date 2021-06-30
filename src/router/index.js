@@ -137,6 +137,12 @@ export const router = new Router({
       component: () => import('../views/BoardMedic.vue')
     },
     {
+      path: '/detalles',
+      name: 'detalles',
+      // lazy-loaded
+      component: () => import('../views/medic/Detalles.vue')
+    },
+    {
       path: '/manager',
       name: 'manager',
       // lazy-loaded
