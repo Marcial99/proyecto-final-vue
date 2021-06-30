@@ -2,7 +2,7 @@
   <div class="container-fluid col-sm-6 text-start">
     <div class="notificaciones">
       <div v-for="prueba in pruebas" :key="prueba.id_prueba">
-        <div class="alert alert-danger" role="alert">
+        <div class="alert  alert-warning  shadow" role="alert">
           <h4 class="alert-heading">Debes hacerte una prueba</h4>
           <p>Id prueba: {{ prueba.id_prueba }}</p>
           <p>Tipo de prueba: {{ prueba.tipo_prueba }}</p>
