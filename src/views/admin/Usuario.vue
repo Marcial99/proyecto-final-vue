@@ -5,6 +5,10 @@
       <hr />
       <div class="row mb-3">
         <div class="col">
+          <label>Id de usuario</label>
+          <input type="text" class="form-control" v-model="id" />
+        </div>
+        <div class="col">
           <label>Nombre de usuario</label>
           <input type="text" class="form-control" v-model="username" />
         </div>
@@ -123,7 +127,7 @@ setTimeout(function(){location.reload()},5000);
         .then(function(response) {
           console.log(response);
            Vue.$toast.open({
-        message: "borrado existoso recarga la pagina",
+        message: response.data.detail,
         type: "error",
         duration: 5000,
         dismissible: true,
@@ -139,7 +143,7 @@ setTimeout(function(){location.reload()},5000);
       });
         });
   
-setTimeout(function(){location.reload()},5000);
+// setTimeout(function(){location.reload()},5000);
     },
     updateForm() {
       axios
@@ -153,7 +157,7 @@ setTimeout(function(){location.reload()},5000);
         .then(function(response) {
           console.log(response);
              Vue.$toast.open({
-        message: "actualizacion existosa, recarga la pagina",
+        message: response.data.detail,
         type: "warning",
         duration: 5000,
         dismissible: true,
@@ -162,7 +166,7 @@ setTimeout(function(){location.reload()},5000);
         .catch(function(error) {
           console.log(error);
            Vue.$toast.open({
-        message: "algo succedio",
+        message: response.data.detail,
         type: "error",
         duration: 5000,
         dismissible: true,

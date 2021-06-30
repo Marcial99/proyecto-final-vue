@@ -24,7 +24,20 @@ export const router = new Router({
     },
     {
       path: '/register',
-      component: Register
+      component: Register,
+      children: [
+        {
+           path: 'alumno',
+           name: 'FormularioAlumno',
+           component: ()=> import('../components/User/FormularioAlumno.vue'),
+        },
+        {
+          path: 'personal',
+          name: 'FormularioPersonal',
+          component: ()=> import('../components/User/FormularioPersonal.vue'),
+       },
+        // other nested routes
+    ]
     },
     {
       path: '/profile',
@@ -184,7 +197,7 @@ export const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register', '/home'];
+  const publicPages = ['/login', '/register', '/home','/register/alumno','/register/personal'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 
