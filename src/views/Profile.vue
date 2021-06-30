@@ -33,7 +33,7 @@
 <div class="form-group">
   <label >Si es la primera vez que se registra presione: completar registro</label>
   <br>
-  <input type="text" class="form-control" placeholder="introduce tu id aqui......" v-model="id" disabled>
+  <input type="hidden" class="form-control" v-model="id" disabled>
   <button type="submit" class="btn btn-warning" @click="updateAlumno">completar registro</button>
 </div>
 <a class="btn btn-danger" href @click.prevent="logOut">
