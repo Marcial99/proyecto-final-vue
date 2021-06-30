@@ -1,6 +1,7 @@
 <template>
     <div class="container-fluid">
-<form>
+<form onsubmit="return false">
+  <!-- TODO: enlazar los datos a la tabla correspondiente y hacer el envio por axios -->
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Sintomas</label>
     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -11,11 +12,11 @@
     <input type="file" class="form-control" id="exampleInputPassword1" @change="onFileSelected" accept="image/jpeg,image/png,application/pdf">
   </div>
   <div class="mb-3">
-    <progress :value="uploadValue" class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" 
+    <progress :value="uploadValue" class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" 
  v-bind:aria-valuenow="uploadValue" aria-valuemin="0" aria-valuemax="100" progressbar> % </progress>
   </div>
    <div class="container-fluid">
-<iframe :src="picture" style="width:500px; height:500px;" frameborder="0"></iframe>
+<iframe :src="picture" style="width:100%; height:100%;" frameborder="0"></iframe>
     </div>
   <button type="submit" class="btn btn-primary" @click="onUpload">Enviar</button>
   </form>
@@ -33,18 +34,24 @@ export default {
     selectedFile : null,
     uploadValue:0,
     picture:null,
+    email:this.$store.state.auth.user.email,
+    extension:""
     }
   },
   methods: {
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
       console.log(this.selectedFile)
+      var str = this.selectedFile.type;
+      var inicio = str.search("/");
+      var final = str.length;
+      this.extension = str.slice(inicio+1,final)
     },
     onUpload(){
       var n = Date.now();
-      var storageRef = firebase.storage().ref(`/imagenes/${n}_${this.selectedFile.name}`);;
+      var storageRef = firebase.storage().ref(`/imagenes/${n}_${this.email}.${this.extension}`);;
       if(this.selectedFile.type=="application/pdf"){
-       storageRef = firebase.storage().ref(`/documentos/${n}_${this.selectedFile.name}`);
+       storageRef = firebase.storage().ref(`/documentos/${n}_${this.email}.${this.extension}`);
       }
 
 const task = storageRef.put(this.selectedFile);
