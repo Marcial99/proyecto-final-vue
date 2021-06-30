@@ -1,5 +1,17 @@
 <template>
   <div class="container-fluid col-sm-6 text-start">
+    <div class="notificaciones">
+      <div v-for="prueba in pruebas" :key="prueba.id_prueba">
+        <div class="alert alert-danger" role="alert">
+          <h4 class="alert-heading">Debes hacerte una prueba</h4>
+          <p>Id prueba: {{ prueba.id_prueba }}</p>
+          <p>Tipo de prueba: {{ prueba.tipo_prueba }}</p>
+          <button class="btn btn-primary" @click="submitPrueba(prueba)">
+            Aceptar prueba
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="text-center">
       <router-link
         to="user/solicitud_medico"
@@ -580,6 +592,7 @@ export default {
       resultado1: 0,
       resultadoFinal: "no sospechoso",
       contador: 0,
+      pruebas: [],
     };
   },
   computed: {
@@ -634,6 +647,38 @@ export default {
     },
   },
   methods: {
+    submitPrueba(prueba) {
+      axios
+        .put("https://proyecto-tedw.herokuapp.com/prueba/" + prueba.id_prueba, {
+          tipo_prueba: prueba.tipo_prueba,
+          resultado: prueba.resultado,
+          documento: prueba.documento,
+          status: "procesando",
+          id_medico: 2,
+          id_users: prueba.id_users,
+        })
+        .then((response) => {
+          console.log(response);
+          this.activoo = true;
+          location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async getNotificaciones() {
+      try {
+        const pruebas = await axios.get(
+          "https://proyecto-tedw.herokuapp.com/prueba/abierta/" +
+            this.id_usuario
+        );
+        this.pruebas = pruebas.data;
+        console.log(pruebas);
+        this.cargado = false;
+      } catch (err) {
+        console.log(err);
+      }
+    },
     submitForm() {
       if (this.r1 == "true") {
         this.contador += 1;
@@ -700,6 +745,7 @@ export default {
           r13: this.r13,
           r14: this.r14,
           resultado: this.resultadoFinal,
+          status: "abierta",
         })
         .then((response) => {
           console.log(response);
@@ -748,6 +794,10 @@ export default {
       }
     );
   },
+
+  created() {
+    this.getNotificaciones();
+  },
 };
 </script>
 <style>
@@ -759,5 +809,10 @@ export default {
   z-index: 99;
   top: 10px;
   background: rgb(206, 227, 255);
+}
+.notificaciones {
+  position: fixed;
+  right: 10px;
+  width: 20%;
 }
 </style>

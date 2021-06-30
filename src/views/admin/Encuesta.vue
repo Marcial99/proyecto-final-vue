@@ -80,6 +80,7 @@
                 <th>pregunta 13</th>
                 <th>pregunta 14</th>
                 <th>resultado</th>
+                <th>status</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -92,7 +93,7 @@
 
 <script>
 import axios from "axios";
-import Vue from 'vue';
+import Vue from "vue";
 export default {
   name: "Encuesta",
   data() {
@@ -117,6 +118,7 @@ export default {
       r14: "",
       resultado: "",
       dataTable: null,
+      status: "",
     };
   },
   methods: {
@@ -141,28 +143,30 @@ export default {
           r13: this.r13,
           r14: this.r14,
           resultado: this.resultado,
+          status: this.status,
         })
         .then(function(response) {
           console.log(response);
           Vue.$toast.open({
-        message: "registro existoso recarga la pagina",
-        type: "success",
-        duration: 5000,
-        dismissible: true,
-      });
+            message: "registro existoso recarga la pagina",
+            type: "success",
+            duration: 5000,
+            dismissible: true,
+          });
         })
         .catch(function(error) {
           console.log(error);
-           Vue.$toast.open({
-        message: "algo succedio",
-        type: "error",
-        duration: 5000,
-        dismissible: true,
-      });
-
+          Vue.$toast.open({
+            message: "algo succedio",
+            type: "error",
+            duration: 5000,
+            dismissible: true,
+          });
         });
-       
-setTimeout(function(){location.reload()},5000); 
+
+      setTimeout(function() {
+        location.reload();
+      }, 5000);
     },
     deleteForm() {
       axios({
@@ -188,29 +192,31 @@ setTimeout(function(){location.reload()},5000);
           r13: this.r13,
           r14: this.r14,
           resultado: this.resultado,
+          status: this.status,
         },
       })
         .then(function(response) {
           console.log(response);
-   
- Vue.$toast.open({
-        message: "borrado existoso recarga la pagina",
-        type: "error",
-        duration: 5000,
-        dismissible: true,
-      });
 
+          Vue.$toast.open({
+            message: "borrado existoso recarga la pagina",
+            type: "error",
+            duration: 5000,
+            dismissible: true,
+          });
         })
         .catch(function(error) {
           console.log(error);
-        Vue.$toast.open({
-        message: "algo succedio",
-        type: "error",
-        duration: 5000,
-        dismissible: true,
-      });
+          Vue.$toast.open({
+            message: "algo succedio",
+            type: "error",
+            duration: 5000,
+            dismissible: true,
+          });
         });
-setTimeout(function(){location.reload()},5000);
+      setTimeout(function() {
+        location.reload();
+      }, 5000);
     },
     updateForm() {
       axios
@@ -235,27 +241,30 @@ setTimeout(function(){location.reload()},5000);
             r13: this.r13,
             r14: this.r14,
             resultado: this.resultado,
+            status: this.status,
           }
         )
         .then(function(response) {
           console.log(response);
-             Vue.$toast.open({
-        message: "actualizacion existosa, recarga la pagina",
-        type: "warning",
-        duration: 5000,
-        dismissible: true,
-      });
+          Vue.$toast.open({
+            message: "actualizacion existosa, recarga la pagina",
+            type: "warning",
+            duration: 5000,
+            dismissible: true,
+          });
         })
         .catch(function(error) {
           console.log(error);
-           Vue.$toast.open({
-        message: "algo succedio",
-        type: "error",
-        duration: 5000,
-        dismissible: true,
-      });
+          Vue.$toast.open({
+            message: "algo succedio",
+            type: "error",
+            duration: 5000,
+            dismissible: true,
+          });
         });
-        setTimeout(function(){location.reload()},5000);
+      setTimeout(function() {
+        location.reload();
+      }, 5000);
     },
   },
   mounted() {
@@ -291,6 +300,7 @@ setTimeout(function(){location.reload()},5000);
               encuesta.r13,
               encuesta.r14,
               encuesta.resultado,
+              encuesta.status,
             ])
             .draw(false);
         });
