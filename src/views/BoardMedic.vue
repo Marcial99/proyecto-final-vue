@@ -1,6 +1,6 @@
 <template>
   <div class="contenedor overflow-auto">
-    <h1 class="text-center">Monitoreo de correos de casos activos</h1>
+    <h1 class="text-center">Encuestas realizadas</h1>
     <br />
     <table
       class="table  table-responsive-md table-hover table-bordered "
