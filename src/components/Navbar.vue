@@ -24,20 +24,6 @@
         tag="button"
         exact
         class="side-btn"
-        to="/trazabilidad_correos"
-        v-if="currentUser"
-      >
-        <div class="link-container">
-          <i class="fas fa-envelope menu-icon"></i>
-          <span class="texto-item"> Trazabilidad Correos</span>
-        </div>
-      </router-link>
-
-      <router-link
-        active-class="active"
-        tag="button"
-        exact
-        class="side-btn"
         to="/verPruebas"
         v-if="showMedicBoard || showAdminBoard"
       >

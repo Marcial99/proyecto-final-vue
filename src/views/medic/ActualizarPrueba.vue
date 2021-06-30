@@ -39,7 +39,12 @@
         ></iframe>
       </div>
       <div></div>
-      <button type="submit" class="btn btn-primary" @click="onUpload">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        @click="onUpload"
+        :disabled="activado"
+      >
         Enviar
       </button>
     </div>
@@ -63,6 +68,7 @@ export default {
       status: this.$route.query.status,
       response: null,
       picture: null,
+      activado: false,
     };
   },
   methods: {
@@ -80,6 +86,13 @@ export default {
         })
         .then((response) => {
           console.log(response);
+          this.activado = true;
+          Swal.fire({
+            icon: "success",
+            title: "Ok",
+            text:
+              "El resultado de la prueba fue actualizado correctamente y el usuario ha sido notificado",
+          });
         })
         .catch((error) => {
           console.log(error);

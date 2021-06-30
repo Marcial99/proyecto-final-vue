@@ -43,7 +43,7 @@
               }"
               class="btn btn-success rounded shadow"
             >
-              Mandar correos
+              Actualizar resultado
             </router-link>
           </td>
         </tr>

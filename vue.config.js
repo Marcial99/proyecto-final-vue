@@ -1,5 +1,4 @@
 module.exports = {
-    devServer: {
-      port: 8082
-    }
-  }
+  publicPath:
+    process.env.NODE_ENV === "production" ? "/proyecto-final-vue/" : "/",
+};

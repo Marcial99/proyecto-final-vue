@@ -1,9 +1,11 @@
 <template>
   <div class="contenedor">
     <h1 class="text-center">
-        Ingresa los correos de las personas con las que has tenido contacto los últimos días
+      Ingresa los correos de las personas con las que has tenido contacto los
+      últimos días
     </h1>
     <br /><br />
+
     <form @submit.prevent="procesarFormulario">
       <!-- <div class="form-inline col-md-12">
         <label for="correo" class="col-md-4 ">Mensaje:</label>
@@ -56,13 +58,16 @@ export default {
       correo: {
         correos: [],
       },
-      id_prueba: 8,
+
       numero: 1,
-      tipo_prueba: "Anticuerpos",
-      resultado: "positivo",
-      documento: "resultados.pdf",
-      id_medico: 2,
-      id_users: 6,
+
+      id_prueba: this.$route.query.id_prueba,
+      tipo_prueba: this.$route.query.tipo_prueba,
+      resultado: this.$route.query.resultado,
+      documento: this.$route.query.documento,
+      id_medico: this.$route.query.id_medico,
+      id_users: this.$route.query.id_users,
+      status: this.$route.query.status,
     };
   },
 

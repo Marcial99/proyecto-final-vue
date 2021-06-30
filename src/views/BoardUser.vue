@@ -1,6 +1,33 @@
 <template>
-  <div class="container-fluid col-sm-6 text-start">
-    <div class="notificaciones">
+  <div>
+    <div class="notificaciones overflow-auto">
+      <div v-for="resultado in resultadosP" :key="resultado.id_prueba">
+        <div class="alert  alert-danger  shadow" role="alert">
+          <h4 class="alert-heading">Resultados de tu prueba</h4>
+          <p>Id prueba: {{ resultado.id_prueba }}</p>
+          <p>Tipo de prueba: {{ resultado.tipo_prueba }}</p>
+          <p>Resultado: {{ resultado.resultado }}</p>
+          <strong>Por favor envia los correos en el siguiente enlace</strong>
+          <br />
+          <router-link
+            :to="{
+              path: '/trazabilidad_correos',
+              query: {
+                id_prueba: resultado.id_prueba,
+                tipo_prueba: resultado.tipo_prueba,
+                resultado: resultado.resultado,
+                documento: resultado.documento,
+                id_medico: resultado.id_medico,
+                status: resultado.status,
+                id_users: resultado.id_users,
+              },
+            }"
+            class="btn btn-success rounded shadow"
+          >
+            Mandar correos
+          </router-link>
+        </div>
+      </div>
       <div v-for="prueba in pruebas" :key="prueba.id_prueba">
         <div class="alert  alert-warning  shadow" role="alert">
           <h4 class="alert-heading">Debes hacerte una prueba</h4>
@@ -11,544 +38,564 @@
           </button>
         </div>
       </div>
+      <div v-for="resultado in resultadosN" :key="resultado.id_prueba">
+        <div class="alert  alert-primary shadow" role="alert">
+          <h4 class="alert-heading">
+            Tus resultados de la prueba {{ resultado.id_prueba }}
+          </h4>
+
+          <p>Tipo de prueba: {{ resultado.tipo_prueba }}</p>
+          <p>Resultado: {{ resultado.resultado }}</p>
+          <button class="btn btn-primary" @click="submitPruebaN(resultado)">
+            Cerrar prueba
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="text-center">
-      <router-link
-        to="user/solicitud_medico"
-        v-if="$route.fullPath !== '/user/solicitud_medico'"
-      >
-        <button type="button" class="btn btn-outline-primary mt-2 mb-2">
-          Solicitar cita medica
-        </button>
-      </router-link>
-      <router-view></router-view>
-    </div>
-    <form @submit.prevent="submitForm">
-      <div class="stt mb-2 p-2 shadow-lg rounded">
-        <h6>Progreso:</h6>
 
-        <div class="progress">
-          <div
-            class="progress-bar  progress-bar-striped progress-bar-animated"
-            role="progressbar"
-            aria-valuenow="30"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            :style="valor"
-          ></div>
-        </div>
+    <div class="container-fluid col-sm-6 text-start">
+      <div class="text-center">
+        <router-link
+          to="user/solicitud_medico"
+          v-if="$route.fullPath !== '/user/solicitud_medico'"
+        >
+          <button type="button" class="btn btn-outline-primary mt-2 mb-2">
+            Solicitar cita medica
+          </button>
+        </router-link>
+        <router-view></router-view>
       </div>
-      <div class="">
-        <div class="card shadow rounded mb-4">
-          <div class="card-header">
-            <strong> 1.- </strong> ¿Siente fiebre, escalofríos como los de una
-            gripe, o una fiebre con una temperatura tomada por la boca de 38,1°C
-            (100,6°F) o más?
-          </div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r1"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r1"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r1"
-                id="flexRadioDefault2"
-                value="false"
-                checked
-                v-model="r1"
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
-            </div>
-          </div>
-        </div>
+      <form @submit.prevent="submitForm">
+        <div class="stt mb-2 p-2 shadow-lg rounded">
+          <h6>Progreso:</h6>
 
-        <div class="card  shadow rounded mb-4">
-          <div class="card-header">
-            <strong>2.-</strong> ¿Ha tenido una pérdida repentina del olfato sin
-            congestión nasal (nariz tapada), con o sin pérdida del gusto?
-          </div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r2"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r2"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r2"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r2"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
-            </div>
+          <div class="progress">
+            <div
+              class="progress-bar  progress-bar-striped progress-bar-animated"
+              role="progressbar"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              :style="valor"
+            ></div>
           </div>
         </div>
+        <div class="">
+          <div class="card shadow rounded mb-4">
+            <div class="card-header">
+              <strong> 1.- </strong> ¿Siente fiebre, escalofríos como los de una
+              gripe, o una fiebre con una temperatura tomada por la boca de
+              38,1°C (100,6°F) o más?
+            </div>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r1"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r1"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r1"
+                  id="flexRadioDefault2"
+                  value="false"
+                  checked
+                  v-model="r1"
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
+            </div>
+          </div>
 
-        <div class="card  shadow rounded  mb-4">
-          <div class="card-header">
-            <strong>3.- </strong> ¿Ha desarrollado una tos o su tos crónica ha
-            empeorado recientemente?
-          </div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r3"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r3"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
+          <div class="card  shadow rounded mb-4">
+            <div class="card-header">
+              <strong>2.-</strong> ¿Ha tenido una pérdida repentina del olfato
+              sin congestión nasal (nariz tapada), con o sin pérdida del gusto?
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r3"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r3"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r2"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r2"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r2"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r2"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card rounded shadow  mb-4">
-          <div class="card-header">
-            <strong>4.-</strong> ¿Tiene problemas al respirar o le falta el
-            aliento?
-          </div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r4"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r4"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
+          <div class="card  shadow rounded  mb-4">
+            <div class="card-header">
+              <strong>3.- </strong> ¿Ha desarrollado una tos o su tos crónica ha
+              empeorado recientemente?
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r4"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r4"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r3"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r3"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r3"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r3"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card shadow  rounded  mb-4">
-          <div class="card-header">
-            <strong>5.-</strong> ¿Tiene dolor de garganta?
-          </div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r5"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r5"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
+          <div class="card rounded shadow  mb-4">
+            <div class="card-header">
+              <strong>4.-</strong> ¿Tiene problemas al respirar o le falta el
+              aliento?
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r5"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r5"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r4"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r4"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r4"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r4"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card shadow rounded  mb-4">
-          <div class="card-header">
-            <strong>6.-</strong> ¿Tiene secreción o congestión nasal de causa
-            desconocida?
-          </div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r6"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r6"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
+          <div class="card shadow  rounded  mb-4">
+            <div class="card-header">
+              <strong>5.-</strong> ¿Tiene dolor de garganta?
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r6"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r6"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r5"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r5"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r5"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r5"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card shadow rounded  mb-4">
-          <div class="card-header"><strong>7.-</strong> Dolor de estómago</div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r7"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r7"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
+          <div class="card shadow rounded  mb-4">
+            <div class="card-header">
+              <strong>6.-</strong> ¿Tiene secreción o congestión nasal de causa
+              desconocida?
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r7"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r7"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r6"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r6"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r6"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r6"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card shadow rounded  mb-4">
-          <div class="card-header"><strong>8.-</strong> Náuseas o vómitos</div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r8"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r8"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
+          <div class="card shadow rounded  mb-4">
+            <div class="card-header">
+              <strong>7.-</strong> Dolor de estómago
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r8"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r8"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r7"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r7"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r7"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r7"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card shadow rounded  mb-4">
-          <div class="card-header"><strong>9.-</strong> Diarrea</div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r9"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r9"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
+          <div class="card shadow rounded  mb-4">
+            <div class="card-header">
+              <strong>8.-</strong> Náuseas o vómitos
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r9"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r9"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r8"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r8"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r8"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r8"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card rounded shadow  mb-4">
-          <div class="card-header">
-            <strong>10.-</strong> Fatiga inusualmente intensa sin razón obvia
-          </div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r10"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r10"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
+          <div class="card shadow rounded  mb-4">
+            <div class="card-header"><strong>9.-</strong> Diarrea</div>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r9"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r9"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r9"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r9"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r10"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r10"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
-            </div>
           </div>
-        </div>
 
-        <div class="card shadow rounded mb-4">
-          <div class="card-header">
-            <strong>11.-</strong> Pérdida significativa de apetito
-          </div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r11"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r11"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
+          <div class="card rounded shadow  mb-4">
+            <div class="card-header">
+              <strong>10.-</strong> Fatiga inusualmente intensa sin razón obvia
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r11"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r11"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r10"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r10"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r10"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r10"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card rounded shadow  mb-4">
-          <div class="card-header">
-            <strong>12.-</strong> Dolores musculares generalizados inusuales o
-            sin razón obvia (no relacionado con el esfuerzo físico)
-          </div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r12"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r12"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
+          <div class="card shadow rounded mb-4">
+            <div class="card-header">
+              <strong>11.-</strong> Pérdida significativa de apetito
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r12"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r12"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r11"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r11"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r11"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r11"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card shadow rounded  mb-3">
-          <div class="card-header">
-            <strong>13.-</strong> Dolor de cabeza inhabitual
-          </div>
-          <div class="card-body text-dark">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r13"
-                id="flexRadioDefault1"
-                value="true"
-                v-model="r13"
-                required
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                si
-              </label>
+          <div class="card rounded shadow  mb-4">
+            <div class="card-header">
+              <strong>12.-</strong> Dolores musculares generalizados inusuales o
+              sin razón obvia (no relacionado con el esfuerzo físico)
             </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="r13"
-                id="flexRadioDefault2"
-                value="false"
-                v-model="r13"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                no
-              </label>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r12"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r12"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r12"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r12"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card shadow rounded  mb-4">
-          <div class="card-header">
-            <strong>14.-</strong> Describa si tiene otros síntomas:
+          <div class="card shadow rounded  mb-3">
+            <div class="card-header">
+              <strong>13.-</strong> Dolor de cabeza inhabitual
+            </div>
+            <div class="card-body text-dark">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r13"
+                  id="flexRadioDefault1"
+                  value="true"
+                  v-model="r13"
+                  required
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  si
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="r13"
+                  id="flexRadioDefault2"
+                  value="false"
+                  v-model="r13"
+                  checked
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  no
+                </label>
+              </div>
+            </div>
           </div>
-          <div class="card-body text-dark">
-            <input
-              type="text"
-              class="form-control"
-              name="r14"
-              v-model="r14"
-              aria-describedby="helpId"
-              placeholder="Escribe aqui.."
-            />
-            <br />
-            <select
-              class="form-select"
-              aria-label="Default select example"
-              name="modalidad"
-              v-model="modalidad"
-              required
-            >
-              <option selected>MODALIDAD DE LA ENCUESTA</option>
-              <option value="obligatoria">obligatoria</option>
-              <option value="voluntaria">voluntaria</option>
-              <option value="aleatoria">aleatoria</option>
-            </select>
+
+          <div class="card shadow rounded  mb-4">
+            <div class="card-header">
+              <strong>14.-</strong> Describa si tiene otros síntomas:
+            </div>
+            <div class="card-body text-dark">
+              <input
+                type="text"
+                class="form-control"
+                name="r14"
+                v-model="r14"
+                aria-describedby="helpId"
+                placeholder="Escribe aqui.."
+              />
+              <br />
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                name="modalidad"
+                v-model="modalidad"
+                required
+              >
+                <option selected>MODALIDAD DE LA ENCUESTA</option>
+                <option value="obligatoria">obligatoria</option>
+                <option value="voluntaria">voluntaria</option>
+                <option value="aleatoria">aleatoria</option>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="right">
-        <button type="submit" class="btn btn-primary ml-4 btn-md">
-          Enviar
-        </button>
-      </div>
-    </form>
-    <!-- <p> {{id_usuario}} </p> -->
-    <!-- <h3>Data retrieved from server:</h3>
+        <div class="right">
+          <button type="submit" class="btn btn-primary ml-4 btn-md">
+            Enviar
+          </button>
+        </div>
+      </form>
+      <!-- <p> {{id_usuario}} </p> -->
+      <!-- <h3>Data retrieved from server:</h3>
     <div class="alert alert-success" role="alert" v-if="success">
       <strong>{{ success }}</strong>
     </div>
     <pre>{{ response }}</pre> -->
+    </div>
   </div>
 </template>
 
@@ -593,6 +640,8 @@ export default {
       resultadoFinal: "no sospechoso",
       contador: 0,
       pruebas: [],
+      resultadosP: [],
+      resultadosN: [],
     };
   },
   computed: {
@@ -654,7 +703,7 @@ export default {
           resultado: prueba.resultado,
           documento: prueba.documento,
           status: "procesando",
-          id_medico: 2,
+          id_medico: prueba.id_medico,
           id_users: prueba.id_users,
         })
         .then((response) => {
@@ -678,6 +727,49 @@ export default {
       } catch (err) {
         console.log(err);
       }
+      try {
+        const resultadosP = await axios.get(
+          "https://proyecto-tedw.herokuapp.com/prueba/res/" +
+            this.id_usuario +
+            "/positivo"
+        );
+        this.resultadosP = resultadosP.data;
+        console.log(this.resultadosP);
+        this.cargado = false;
+      } catch (err) {
+        console.log(err);
+      }
+      try {
+        const resultadosN = await axios.get(
+          "https://proyecto-tedw.herokuapp.com/prueba/res/" +
+            this.id_usuario +
+            "/negativo"
+        );
+        this.resultadosN = resultadosN.data;
+        console.log(this.resultadosN);
+        this.cargado = false;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    submitPruebaN(prueba) {
+      axios
+        .put("https://proyecto-tedw.herokuapp.com/prueba/" + prueba.id_prueba, {
+          tipo_prueba: prueba.tipo_prueba,
+          resultado: prueba.resultado,
+          documento: prueba.documento,
+          status: "cerrado",
+          id_medico: prueba.id_medico,
+          id_users: prueba.id_users,
+        })
+        .then((response) => {
+          console.log(response);
+          this.activoo = true;
+          location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     submitForm() {
       if (this.r1 == "true") {
@@ -811,7 +903,7 @@ export default {
   background: rgb(206, 227, 255);
 }
 .notificaciones {
-  position: fixed;
+  position: absolute;
   right: 10px;
   width: 20%;
 }
