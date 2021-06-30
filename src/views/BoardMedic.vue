@@ -28,9 +28,29 @@
               :to="{
                 path: '/detalles',
                 query: {
-                  id_encuesta: encuesta.id_encuesta
-                }
+                  id_encuesta: encuesta.id_encuesta,
+                },
+              }"
+              class="btn btn-success rounded shadow"
+            >
+              Ver y levantar prueba
+            </router-link>
+          </td>
+        </tr>
 
+        <tr v-if="!except">
+          <td>{{ encuestas[0].id_encuesta }}</td>
+          <td>{{ encuestas[0].modalidad }}</td>
+          <td>{{ encuestas[0].id_users }}</td>
+          <td>{{ encuestas[0].fecha }}</td>
+          <td>{{ encuestas[0].resultado }}</td>
+          <td>
+            <router-link
+              :to="{
+                path: '/detalles',
+                query: {
+                  id_encuesta: encuestas[0].id_encuesta,
+                },
               }"
               class="btn btn-success rounded shadow"
             >
@@ -45,23 +65,36 @@
 
 <script>
 import axios from "axios";
-import UserService from '../services/user.service';
+import UserService from "../services/user.service";
 export default {
-  name: 'Medic',
+  name: "Medic",
   components: {},
   data() {
     return {
       encuestas: [],
       cargado: false,
+      except: false,
     };
   },
   methods: {
     async getEncuestas() {
       try {
         const encuestas = await axios.get(
-          "https://proyecto-tedw.herokuapp.com/encuestas/st/sospechoso"
+          "https://proyecto-tedw.herokuapp.com/encuestas/st/sospechoso/abierta"
         );
-        this.encuestas = encuestas.data.result.rows;
+        try {
+          this.encuestas = encuestas.data.result.rows;
+        } catch (Exception) {
+          this.encuestas[0] = {
+            id_encuesta: encuestas.data.id_encuesta,
+            modalidad: encuestas.data.modalidad,
+            id_users: encuestas.data.id_users,
+            fecha: encuestas.data.fecha,
+            resultado: encuestas.data.resultado,
+          };
+          this.except = true;
+        }
+
         console.log(this.encuestas);
         this.cargado = false;
       } catch (err) {
@@ -75,10 +108,10 @@ export default {
   computed: {},
   mounted() {
     UserService.getMedicBoard().then(
-      response => {
+      (response) => {
         this.content = response.data;
       },
-      error => {
+      (error) => {
         this.content =
           (error.response && error.response.data) ||
           error.message ||
