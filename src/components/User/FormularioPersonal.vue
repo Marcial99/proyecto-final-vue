@@ -30,6 +30,7 @@
               type="email"
               class="form-control"
               name="email"
+               pattern="[0-9]+@itcelaya.edu.mx"
             />
             <div
               v-if="submitted && errors.has('email')"
