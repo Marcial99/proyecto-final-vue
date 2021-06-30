@@ -156,6 +156,12 @@ export const router = new Router({
       component: () => import('../views/medic/Detalles.vue')
     },
     {
+      path: '/actualizarPruebas',
+      name: 'actilizarPruebas',
+      // lazy-loaded
+      component: () => import('../views/medic/ActualizarPrueba.vue')
+    },
+    {
       path: '/manager',
       name: 'manager',
       // lazy-loaded
