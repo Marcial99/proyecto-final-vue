@@ -34,6 +34,20 @@
       </router-link>
 
       <router-link
+        active-class="active"
+        tag="button"
+        exact
+        class="side-btn"
+        to="/verPruebas"
+        v-if="showMedicBoard || showAdminBoard"
+      >
+        <div class="link-container">
+          <i class="fas fa-vials menu-icon"></i>
+          <span class="texto-item">Actualizar resultado de pruebas</span>
+        </div>
+      </router-link>
+
+      <router-link
         to="/manager"
         active-class="active"
         tag="button"
