@@ -3,7 +3,6 @@
     <hr />
     <h1 class="text-center mt-2">Reportes</h1>
     <hr />
-
     <div class="card">
       <h5 class="card-header">Estudiantes de la institución</h5>
       <div class="card-body">
@@ -43,8 +42,8 @@
     <div class="card">
       <h5 class="card-header">Carreras</h5>
       <div class="card-body">
-        <p class="card-text">Total de casos por carrera</p>
-        <router-link to="/">
+        <p class="card-text">Listado de casos positivos por carrera</p>
+        <router-link to="/casosCarrera">
           <button
             type="button"
             class="btn btn-primary rounded font-weight-bold"
@@ -58,13 +57,46 @@
     <div class="card">
       <h5 class="card-header">Departamentos</h5>
       <div class="card-body">
-        <p class="card-text">Total de casos por departamento</p>
-        <router-link to="/">
+        <p class="card-text">Listado de casos positivos por departamento</p>
+        <router-link to="/casosDepartamento">
           <button
             type="button"
             class="btn btn-primary rounded font-weight-bold"
           >
             Detalles
+          </button>
+        </router-link>
+      </div>
+    </div>
+    <br />
+    <hr />
+    <h1 class="text-center mt-2">Graficas</h1>
+    <hr />
+    <div class="card">
+      <h5 class="card-header">Carrera</h5>
+      <div class="card-body">
+        <p class="card-text">Grafica de casos positivos por carrera</p>
+        <router-link to="/graCasosCarrera">
+          <button
+            type="button"
+            class="btn btn-primary rounded font-weight-bold"
+          >
+            Ver
+          </button>
+        </router-link>
+      </div>
+    </div>
+    <br />
+    <div class="card">
+      <h5 class="card-header">Departamentos</h5>
+      <div class="card-body">
+        <p class="card-text">Grafica de casos positivos por departamento</p>
+        <router-link to="/">
+          <button
+            type="button"
+            class="btn btn-primary rounded font-weight-bold"
+          >
+            Ver
           </button>
         </router-link>
       </div>

@@ -51,19 +51,19 @@ export default {
         {
           extend: "excelHtml5",
           text: '<i class="fas fa-file-excel"></i> ',
-          titleAttr: "Exportar a Excel",
+          titleAttr: "Reporte en Excel",
           className: "btn btn-success",
         },
         {
           extend: "pdfHtml5",
           text: '<i class="fas fa-file-pdf"></i> ',
-          titleAttr: "Exportar a PDF",
+          titleAttr: "Reporte en PDF",
           className: "btn btn-danger",
         },
         {
           extend: "print",
           text: '<i class="fa fa-print"></i> ',
-          titleAttr: "Imprimir",
+          titleAttr: "Imprimir reporte",
           className: "btn btn-info",
         },
       ],

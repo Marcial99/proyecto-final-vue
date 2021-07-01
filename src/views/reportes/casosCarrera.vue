@@ -1,8 +1,6 @@
 <template>
   <div id="app" class="container border shadow mb-4">
-    <h1 class="text-center mt-2">
-      Reporte sobre estudiantes contagiados por carrera
-    </h1>
+    <h1 class="text-center mt-2">Reporte de contagios por carrera</h1>
     <hr />
     <div class="row mb-5">
       <div class="col overflow-auto">
@@ -14,10 +12,8 @@
         >
           <thead class="thead-dark">
             <tr>
-              <th>Nombre</th>
-              <th>fecha</th>
-              <th>Resultado</th>
               <th>Carrera</th>
+              <th>Personas Contagiadas</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -31,7 +27,7 @@
 import axios from "axios";
 import Vue from "vue";
 export default {
-  name: "casosEstudiante",
+  name: "casosCarreras",
   data() {
     return {
       Nombre: "",
@@ -42,7 +38,7 @@ export default {
     };
   },
   mounted() {
-    let estudiantes = [];
+    let carrera = [];
 
     this.dataTable = $("#user-table").DataTable({
       responsive: "true",
@@ -51,42 +47,33 @@ export default {
         {
           extend: "excelHtml5",
           text: '<i class="fas fa-file-excel"></i> ',
-          titleAttr: "Exportar a Excel",
+          titleAttr: "Reporte en Excel",
           className: "btn btn-success",
         },
         {
           extend: "pdfHtml5",
           text: '<i class="fas fa-file-pdf"></i> ',
-          titleAttr: "Exportar a PDF",
+          titleAttr: "Reporte en PDF",
           className: "btn btn-danger",
         },
         {
           extend: "print",
           text: '<i class="fa fa-print"></i> ',
-          titleAttr: "Imprimir",
+          titleAttr: "Imprimir reporte",
           className: "btn btn-info",
         },
       ],
     });
-    const url = "https://proyecto-tedw.herokuapp.com/alumnos/all/reporte";
+    const url = "https://proyecto-tedw.herokuapp.com/alumnos/total/contagios";
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
         data.forEach((item) => {
-          estudiantes.push(item);
+          carrera.push(item);
         });
-        estudiantes.forEach((estudiante) => {
+        carrera.forEach((carrera) => {
           this.dataTable.row
-            .add([
-              estudiante.nombre +
-                " " +
-                estudiante.a_paterno +
-                " " +
-                estudiante.a_materno,
-              estudiante.fecha,
-              estudiante.resultado,
-              estudiante.carrera,
-            ])
+            .add([carrera.carrera, carrera.contagios])
             .draw(false);
         });
       });

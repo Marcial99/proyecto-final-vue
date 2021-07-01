@@ -223,10 +223,22 @@ export const router = new Router({
       component: () => import("../views/reportes/casosPersonal.vue"),
     },
     {
-      path: "/graCasosDepartamento",
-      name: "graCasosDepartamento",
+      path: "/casosCarrera",
+      name: "casosCarrera",
       // lazy-loaded
-      component: () => import("../views/reportes/graCasosDepartamento.vue"),
+      component: () => import("../views/reportes/casosCarrera.vue"),
+    },
+    {
+      path: "/casosDepartamento",
+      name: "casosDepartamento",
+      // lazy-loaded
+      component: () => import("../views/reportes/casosDepartamento.vue"),
+    },
+    {
+      path: "/graCasosCarrera",
+      name: "graCasosCarrera",
+      // lazy-loaded
+      component: () => import("../views/reportes/graCasosCarrera.vue"),
     },
     {
       path: "/trazabilidad_correos",

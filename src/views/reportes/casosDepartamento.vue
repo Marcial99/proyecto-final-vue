@@ -1,8 +1,6 @@
 <template>
   <div id="app" class="container border shadow mb-4">
-    <h1 class="text-center mt-2">
-      Reporte sobre Estudiantes de la institución contagiados
-    </h1>
+    <h1 class="text-center mt-2">Reporte de contagios por departamento</h1>
     <hr />
     <div class="row mb-5">
       <div class="col overflow-auto">
@@ -14,10 +12,8 @@
         >
           <thead class="thead-dark">
             <tr>
-              <th>Nombre</th>
-              <th>fecha</th>
-              <th>Resultado</th>
-              <th>Carrera</th>
+              <th>Departamento</th>
+              <th>Personas Contagiadas</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -31,18 +27,16 @@
 import axios from "axios";
 import Vue from "vue";
 export default {
-  name: "casosEstudiante",
+  name: "casosDepartamentos",
   data() {
     return {
-      Nombre: "",
-      fecha: "",
-      resultado: "",
-      carrera: "",
+      departamento: "",
+      contagios: "",
       dataTable: null,
     };
   },
   mounted() {
-    let estudiantes = [];
+    let departamento = [];
 
     this.dataTable = $("#user-table").DataTable({
       responsive: "true",
@@ -68,25 +62,16 @@ export default {
         },
       ],
     });
-    const url = "https://proyecto-tedw.herokuapp.com/alumnos/all/reporte";
+    const url = "https://proyecto-tedw.herokuapp.com/personal/total/contagios";
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
         data.forEach((item) => {
-          estudiantes.push(item);
+          departamento.push(item);
         });
-        estudiantes.forEach((estudiante) => {
+        departamento.forEach((departamento) => {
           this.dataTable.row
-            .add([
-              estudiante.nombre +
-                " " +
-                estudiante.a_paterno +
-                " " +
-                estudiante.a_materno,
-              estudiante.fecha,
-              estudiante.resultado,
-              estudiante.carrera,
-            ])
+            .add([departamento.departamento, departamento.contagios])
             .draw(false);
         });
       });
