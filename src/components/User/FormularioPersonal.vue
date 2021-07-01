@@ -81,24 +81,46 @@
               v-model="alumno.cargo"
               type="text"
               class="form-control"
-              name="semestre"
+             
               min="1"
               max="12"
               step="1"
               required
             />
-<label for="password">Departamento.</label>
-            <input
-              v-model="alumno.departamento"
-              type="text"
-              class="form-control"
-              name="semestre"
-              min="1"
-              max="12"
-              step="1"
-              required
-            />
-
+            <select v-model="alumno.departamento" class="form-select">
+<option value="Actividades Extraescolares">Actividades Extraescolares</option>
+<option value="Calidad (RD SGC)">Calidad (RD SGC)</option>
+<option value="Centro de Cómputo">Centro de Cómputo</option>
+<option value="Centro de Información">Centro de Información</option>
+<option value="Ciencias Básicas">Ciencias Básicas</option>
+<option value="Comunicación y Difusión">Comunicación y Difusión</option>
+<option value="Departamento de Ciencias Económico Administrativas">Departamento de Ciencias Económico Administrativas</option>
+<option value="Departamento de Gestión Tecnológica y Vinculación">Departamento de Gestión Tecnológica y Vinculación</option>
+<option value="Departamento de Ingeniería Bioquímica">Departamento de Ingeniería Bioquímica</option>
+<option value="Departamento de Ingeniería Electrónica">Departamento de Ingeniería Electrónica</option>
+<option value="Departamento de Ingeniería en Mecatrónica">Departamento de Ingeniería en Mecatrónica</option>
+<option value="Departamento de Ingeniería en Sistemas Computacionales e Informática">Departamento de Ingeniería en Sistemas Computacionales e Informática</option>
+<option value="Departamento de Ingeniería Industrial">Departamento de Ingeniería Industrial</option>
+<option value="Departamento de Ingeniería Mecánica">Departamento de Ingeniería Mecánica</option>
+<option value="Departamento de Ingeniería Química">Departamento de Ingeniería Química</option>
+<option value="Desarrollo Académico">Desarrollo Académico</option>
+<option value="Dirección">Dirección</option>
+<option value="División de Estudios de Posgrado e Investigación">División de Estudios de Posgrado e Investigación</option>
+<option value="División de Estudios Profesionales">División de Estudios Profesionales</option>
+<option value="División de Estudios Profesionales / Propedéutico">División de Estudios Profesionales / Propedéutico</option>
+<option value="Gestión Tecnológica y Vinculación">Gestión Tecnológica y Vinculación</option>
+<option value="Ingeniería Ambiental">Ingeniería Ambiental</option>
+<option value="Mantenimiento de Equipo">Mantenimiento de Equipo</option>
+<option value="Planeación, Programación y Presupuestación">Planeación, Programación y Presupuestación</option>
+<option value="Recursos Financieros">Recursos Financieros</option>
+<option value="Recursos Humanos">Recursos Humanos</option>
+<option value="Recursos Materiales y Servicios">Recursos Materiales y Servicios</option>
+<option value="Servicios Escolares">Servicios Escolares</option>
+<option value="Sindicato">Sindicato</option>
+<option value="Subdirección Académica">Subdirección Académica</option>
+<option value="Subdirección de Planeación y Vinculación">Subdirección de Planeación y Vinculación</option>
+<option value="Subdirección de Servicios Administrativos">Subdirección de Servicios Administrativos</option>
+</select>        
           </div>
           <div class="form-group">
             <button class="btn btn-primary btn-block">Sign Up</button>
