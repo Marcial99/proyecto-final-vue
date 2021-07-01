@@ -642,6 +642,7 @@ export default {
       pruebas: [],
       resultadosP: [],
       resultadosN: [],
+      dispositivoMovil: false,
     };
   },
   computed: {

@@ -10,8 +10,22 @@
         tag="button"
         exact
         class="side-btn"
+        to="/historialPruebas"
+        v-if="currentUser && comprobar"
+      >
+        <div class="link-container">
+          <i class="fas fa-history menu-icon"></i>
+          <span class="texto-item"> Historial de encuestas</span>
+        </div>
+      </router-link>
+
+      <router-link
+        active-class="active"
+        tag="button"
+        exact
+        class="side-btn"
         to="/user"
-        v-if="currentUser"
+        v-if="currentUser && !comprobar"
       >
         <div class="link-container">
           <i class="fas fa-home menu-icon"></i>
@@ -182,6 +196,17 @@ export default {
       }
 
       return false;
+    },
+    comprobar() {
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     },
     showModeratorBoard() {
       if (this.currentUser && this.currentUser.roles) {
