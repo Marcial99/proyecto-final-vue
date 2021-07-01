@@ -13,7 +13,7 @@
           <thead class="thead-dark">
             <tr>
               <th>Departamento</th>
-              <th>Personas Contagiadas</th>
+              <th>Personas contagiadas</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -47,18 +47,21 @@ export default {
           text: '<i class="fas fa-file-excel"></i> ',
           titleAttr: "Reporte en Excel",
           className: "btn btn-success",
+          title: "Contagios de Covid-19 por departamento",
         },
         {
           extend: "pdfHtml5",
           text: '<i class="fas fa-file-pdf"></i> ',
           titleAttr: "Reporte en PDF",
           className: "btn btn-danger",
+          title: "Contagios de Covid-19 por departamento",
         },
         {
           extend: "print",
           text: '<i class="fa fa-print"></i> ',
           titleAttr: "Imprimir reporte",
           className: "btn btn-info",
+          title: "Contagios de Covid-19 por departamento",
         },
       ],
     });

@@ -1,8 +1,6 @@
 <template>
   <div id="app" class="container border shadow mb-4">
-    <h1 class="text-center mt-2">
-      Reporte sobre Estudiantes de la institución contagiados
-    </h1>
+    <h1 class="text-center mt-2">Reporte sobre estudiantes contagiados</h1>
     <hr />
     <div class="row mb-5">
       <div class="col overflow-auto">
@@ -53,18 +51,21 @@ export default {
           text: '<i class="fas fa-file-excel"></i> ',
           titleAttr: "Reporte en Excel",
           className: "btn btn-success",
+          title: "Estudiantes de la institución contagiados",
         },
         {
           extend: "pdfHtml5",
           text: '<i class="fas fa-file-pdf"></i> ',
           titleAttr: "Reporte en PDF",
           className: "btn btn-danger",
+          title: "Estudiantes de la institución contagiados",
         },
         {
           extend: "print",
           text: '<i class="fa fa-print"></i> ',
           titleAttr: "Imprimir reporte",
           className: "btn btn-info",
+          title: "Estudiantes de la institución contagiados",
         },
       ],
     });
