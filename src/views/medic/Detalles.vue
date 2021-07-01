@@ -181,8 +181,6 @@
             >
               Levantar Prueba
             </button>
-            <p>usuario: {{id_usuario}} </p>
-            <p>medico: {{medico}} </p>
           </div>
         </div>
       </div>
