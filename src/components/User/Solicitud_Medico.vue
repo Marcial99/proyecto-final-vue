@@ -6,12 +6,12 @@
     <label for="exampleInputEmail1" class="form-label">Sintomas</label>
     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="sintomas">
     <div id="emailHelp" class="form-text">Describa los sintomas aqui</div>
-    <select v-model="tipo_de_consulta" class="form-select" aria-label="Default select example">
+    <select v-model="tipo" class="form-select" aria-label="Default select example">
   <option disabled value="">Seleccione un elemento</option>
   <option>virtual</option>
   <option>presencial</option>
 </select>
-<span>Seleccionado: {{ tipo_de_consulta }}</span>
+<span>Seleccionado: {{ tipo }}</span>
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Evidencias (fotos)</label>
@@ -48,7 +48,7 @@ export default {
     id_medico:"",
     sintomas:"",
     foto:"",
-    tipo_de_consulta:"",
+    tipo:"",
     extension:""
     }
   },
@@ -60,7 +60,7 @@ axios.post("https://proyecto-tedw.herokuapp.com/consultas",{
   id_users: this.id_users,
   status: this.status,
   fotos:this.foto,
-  tipo_de_consulta:this.tipo_de_consulta,
+  tipo:this.tipo,
 })
 .then(res => {
   console.log(res)
