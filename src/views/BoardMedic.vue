@@ -37,27 +37,6 @@
             </router-link>
           </td>
         </tr>
-
-        <tr v-if="!except">
-          <td>{{ encuestas[0].id_encuesta }}</td>
-          <td>{{ encuestas[0].modalidad }}</td>
-          <td>{{ encuestas[0].id_users }}</td>
-          <td>{{ encuestas[0].fecha }}</td>
-          <td>{{ encuestas[0].resultado }}</td>
-          <td>
-            <router-link
-              :to="{
-                path: '/detalles',
-                query: {
-                  id_encuesta: encuestas[0].id_encuesta,
-                },
-              }"
-              class="btn btn-success rounded shadow"
-            >
-              Ver y levantar prueba
-            </router-link>
-          </td>
-        </tr>
       </tbody>
     </table>
   </div>
@@ -83,7 +62,7 @@ export default {
           "https://proyecto-tedw.herokuapp.com/encuestas/st/sospechoso/abierta"
         );
         try {
-          this.encuestas = encuestas.data.result.rows;
+          this.encuestas = encuestas.data;
         } catch (Exception) {
           this.encuestas[0] = {
             id_encuesta: encuestas.data.id_encuesta,
