@@ -211,6 +211,24 @@ export const router = new Router({
       component: () => import("../views/BoardReport.vue"),
     },
     {
+      path: "/casosEstudiante",
+      name: "casosEstudiante",
+      // lazy-loaded
+      component: () => import("../views/reportes/casosEstudiante.vue"),
+    },
+    {
+      path: "/casosPersonal",
+      name: "casosPersonal",
+      // lazy-loaded
+      component: () => import("../views/reportes/casosPersonal.vue"),
+    },
+    {
+      path: "/graCasosDepartamento",
+      name: "graCasosDepartamento",
+      // lazy-loaded
+      component: () => import("../views/reportes/graCasosDepartamento.vue"),
+    },
+    {
       path: "/trazabilidad_correos",
       name: "TrazabilidadCorreos",
       // lazy-loaded

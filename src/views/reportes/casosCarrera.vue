@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container border shadow mb-4">
     <h1 class="text-center mt-2">
-      Reporte sobre personal de la institución contagiados
+      Reporte sobre estudiantes contagiados por carrera
     </h1>
     <hr />
     <div class="row mb-5">
@@ -17,7 +17,7 @@
               <th>Nombre</th>
               <th>fecha</th>
               <th>Resultado</th>
-              <th>Departamento</th>
+              <th>Carrera</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -31,18 +31,18 @@
 import axios from "axios";
 import Vue from "vue";
 export default {
-  name: "casosPersonal",
+  name: "casosEstudiante",
   data() {
     return {
       Nombre: "",
       fecha: "",
       resultado: "",
-      departamento: "",
+      carrera: "",
       dataTable: null,
     };
   },
   mounted() {
-    let personal = [];
+    let estudiantes = [];
 
     this.dataTable = $("#user-table").DataTable({
       responsive: "true",
@@ -68,24 +68,24 @@ export default {
         },
       ],
     });
-    const url = "https://proyecto-tedw.herokuapp.com/personal/all/reporte";
+    const url = "https://proyecto-tedw.herokuapp.com/alumnos/all/reporte";
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
         data.forEach((item) => {
-          personal.push(item);
+          estudiantes.push(item);
         });
-        personal.forEach((personal) => {
+        estudiantes.forEach((estudiante) => {
           this.dataTable.row
             .add([
-              personal.nombre +
+              estudiante.nombre +
                 " " +
-                personal.a_paterno +
+                estudiante.a_paterno +
                 " " +
-                personal.a_materno,
-              personal.fecha,
-              personal.resultado,
-              personal.departamento,
+                estudiante.a_materno,
+              estudiante.fecha,
+              estudiante.resultado,
+              estudiante.carrera,
             ])
             .draw(false);
         });

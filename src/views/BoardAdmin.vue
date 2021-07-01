@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="col-6">
-          <div class="card text-white bg-danger mt-4 ">
+          <div class="card text-white bg-danger mt-4">
             <div class="row no-gutters">
               <div class="col-md-4">
                 <img
@@ -68,7 +68,7 @@
         <!-- Force next columns to break to new line -->
         <div class="w-100"></div>
 
-        <div class="col-6 ">
+        <div class="col-6">
           <div class="card text-white bg-success mt-4">
             <div class="row no-gutters">
               <div class="col-md-4">
@@ -278,7 +278,7 @@
             </div>
           </div>
         </div>
-        <div class="col-6 ">
+        <div class="col-6">
           <div class="card text-white bg-success mt-4 mb-5">
             <div class="row no-gutters">
               <div class="col-md-4">
@@ -305,11 +305,10 @@
                   </router-link>
                 </div>
               </div>
-              
             </div>
           </div>
         </div>
-        <div class="col-6 ">
+        <div class="col-6">
           <div class="card text-white bg-success mt-4 mb-5">
             <div class="row no-gutters">
               <div class="col-md-4">
@@ -336,11 +335,10 @@
                   </router-link>
                 </div>
               </div>
-              
             </div>
           </div>
         </div>
-        <div class="col-6 ">
+        <div class="col-6">
           <div class="card text-white bg-success mt-4 mb-5">
             <div class="row no-gutters">
               <div class="col-md-4">
@@ -367,7 +365,6 @@
                   </router-link>
                 </div>
               </div>
-              
             </div>
           </div>
         </div>

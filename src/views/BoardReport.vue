@@ -1,33 +1,100 @@
 <template>
-  <div class="container">
-    <header class="jumbotron">
-      <h3>{{content}}</h3>
-    </header>
+  <div class="container overflow-auto mt-5 shadow-lg border p-5">
+    <hr />
+    <h1 class="text-center mt-2">Reportes</h1>
+    <hr />
+
+    <div class="card">
+      <h5 class="card-header">Estudiantes de la institución</h5>
+      <div class="card-body">
+        <p class="card-text">
+          Listado de los casos detectados dentro de la institución
+        </p>
+        <router-link to="/casosEstudiante">
+          <button
+            type="button"
+            class="btn btn-primary rounded font-weight-bold"
+          >
+            Detalles
+          </button>
+        </router-link>
+      </div>
+    </div>
+    <br />
+    <div class="card">
+      <h5 class="card-header">Personal de la institución</h5>
+      <div class="card-body">
+        <p class="card-text">
+          Listado de los casos detectados dentro de la institución
+        </p>
+        <router-link to="/casosPersonal">
+          <button
+            type="button"
+            class="btn btn-primary rounded font-weight-bold"
+          >
+            Detalles
+          </button>
+        </router-link>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="card">
+      <h5 class="card-header">Carreras</h5>
+      <div class="card-body">
+        <p class="card-text">Total de casos por carrera</p>
+        <router-link to="/">
+          <button
+            type="button"
+            class="btn btn-primary rounded font-weight-bold"
+          >
+            Detalles
+          </button>
+        </router-link>
+      </div>
+    </div>
+    <br />
+    <div class="card">
+      <h5 class="card-header">Departamentos</h5>
+      <div class="card-body">
+        <p class="card-text">Total de casos por departamento</p>
+        <router-link to="/">
+          <button
+            type="button"
+            class="btn btn-primary rounded font-weight-bold"
+          >
+            Detalles
+          </button>
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import UserService from '../services/user.service';
+import UserService from "../services/user.service";
 
 export default {
-  name: 'Report',
+  name: "Report",
   data() {
     return {
-      content: ''
+      content: "",
     };
   },
   mounted() {
     UserService.getReportBoard().then(
-      response => {
+      (response) => {
         this.content = response.data;
       },
-      error => {
+      (error) => {
         this.content =
           (error.response && error.response.data) ||
           error.message ||
           error.toString();
       }
     );
-  }
+  },
+  methods: {},
 };
 </script>
