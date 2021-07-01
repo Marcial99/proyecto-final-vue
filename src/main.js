@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueToast from "vue-toast-notification";
 
 //graficas
-import Chartkick from "vue-chartkick";
-import Chart from "chart.js";
-Vue.use(Chartkick.use(Chart));
+// import Chartkick from "vue-chartkick";
+// import Chart from "chart.js";
+// Vue.use(Chartkick.use(Chart));
 //-------------
 // Import one of the available themes
 import "vue-toast-notification/dist/theme-default.css";
