@@ -67,9 +67,21 @@ export const router = new Router({
     },
     {
       path: "/historialPruebas",
-      name: "/historialPruebas",
+      name: "historialPruebas",
       // lazy-loaded
       component: () => import("../views/mobile/HistorialPruebas.vue"),
+    },
+    {
+      path: "/historialEncuestas",
+      name: "historialEncuestass",
+      // lazy-loaded
+      component: () => import("../views/mobile/HistorialEncuestas.vue"),
+    },
+    {
+      path: "/notificaciones",
+      name: "notificaciones",
+      // lazy-loaded
+      component: () => import("../views/mobile/Notificaciones.vue"),
     },
     {
       path: "/alerta",

@@ -10,7 +10,34 @@
         tag="button"
         exact
         class="side-btn"
+        to="/notificaciones"
+        v-if="currentUser && comprobar"
+      >
+        <div class="link-container">
+          <i class="fas fa-bell menu-icon"></i>
+          <span class="texto-item"> Notificaciones</span>
+        </div>
+      </router-link>
+      <router-link
+        active-class="active"
+        tag="button"
+        exact
+        class="side-btn"
         to="/historialPruebas"
+        v-if="currentUser && comprobar"
+      >
+        <div class="link-container">
+          <i class="fas fa-vials menu-icon"></i>
+
+          <span class="texto-item"> Historial de pruebas</span>
+        </div>
+      </router-link>
+      <router-link
+        active-class="active"
+        tag="button"
+        exact
+        class="side-btn"
+        to="/historialEncuestas"
         v-if="currentUser && comprobar"
       >
         <div class="link-container">

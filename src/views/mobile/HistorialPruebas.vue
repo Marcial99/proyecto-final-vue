@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="app" class="container border shadow mb-4">
-      <h1 class="mt-3">Historial de encuestas</h1>
+      <h1 class="mt-3">Historial de pruebas</h1>
       <hr />
 
       <div class="row mb-5">
