@@ -1,58 +1,5 @@
 <template>
   <div>
-    <div class="notificaciones overflow-auto">
-      <div v-for="resultado in resultadosP" :key="resultado.id_prueba">
-        <div class="alert  alert-danger  shadow" role="alert">
-          <h4 class="alert-heading">Resultados de tu prueba</h4>
-          <p>Id prueba: {{ resultado.id_prueba }}</p>
-          <p>Tipo de prueba: {{ resultado.tipo_prueba }}</p>
-          <p>Resultado: {{ resultado.resultado }}</p>
-          <strong>Por favor envia los correos en el siguiente enlace</strong>
-          <br />
-          <router-link
-            :to="{
-              path: '/trazabilidad_correos',
-              query: {
-                id_prueba: resultado.id_prueba,
-                tipo_prueba: resultado.tipo_prueba,
-                resultado: resultado.resultado,
-                documento: resultado.documento,
-                id_medico: resultado.id_medico,
-                status: resultado.status,
-                id_users: resultado.id_users,
-              },
-            }"
-            class="btn btn-success rounded shadow"
-          >
-            Mandar correos
-          </router-link>
-        </div>
-      </div>
-      <div v-for="prueba in pruebas" :key="prueba.id_prueba">
-        <div class="alert  alert-warning  shadow" role="alert">
-          <h4 class="alert-heading">Debes hacerte una prueba</h4>
-          <p>Id prueba: {{ prueba.id_prueba }}</p>
-          <p>Tipo de prueba: {{ prueba.tipo_prueba }}</p>
-          <button class="btn btn-primary" @click="submitPrueba(prueba)">
-            Aceptar prueba
-          </button>
-        </div>
-      </div>
-      <div v-for="resultado in resultadosN" :key="resultado.id_prueba">
-        <div class="alert  alert-primary shadow" role="alert">
-          <h4 class="alert-heading">
-            Tus resultados de la prueba {{ resultado.id_prueba }}
-          </h4>
-
-          <p>Tipo de prueba: {{ resultado.tipo_prueba }}</p>
-          <p>Resultado: {{ resultado.resultado }}</p>
-          <button class="btn btn-primary" @click="submitPruebaN(resultado)">
-            Cerrar prueba
-          </button>
-        </div>
-      </div>
-    </div>
-
     <div class="container-fluid col-sm-6 text-start">
       <div class="text-center">
         <router-link

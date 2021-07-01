@@ -145,7 +145,7 @@ export default {
       );
       this.resultado == "positivo"
         ? (this.status = "resultado")
-        : (this.status = "cerrado");
+        : (this.status = "resultado");
       this.onUpload1();
     },
   },

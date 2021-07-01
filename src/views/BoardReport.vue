@@ -73,9 +73,12 @@
     <h1 class="text-center mt-2">Graficas</h1>
     <hr />
     <div class="card">
-      <h5 class="card-header">Carrera</h5>
+      <h5 class="card-header">Carrera y departamento</h5>
       <div class="card-body">
-        <p class="card-text">Grafica de casos positivos por carrera</p>
+        <p class="card-text">
+          Grafica de casos positivos por carrera y departamento
+        </p>
+
         <router-link to="/graCasosCarrera">
           <button
             type="button"
@@ -87,20 +90,6 @@
       </div>
     </div>
     <br />
-    <div class="card">
-      <h5 class="card-header">Departamentos</h5>
-      <div class="card-body">
-        <p class="card-text">Grafica de casos positivos por departamento</p>
-        <router-link to="/">
-          <button
-            type="button"
-            class="btn btn-primary rounded font-weight-bold"
-          >
-            Ver
-          </button>
-        </router-link>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -127,6 +116,5 @@ export default {
       }
     );
   },
-  methods: {},
 };
 </script>
