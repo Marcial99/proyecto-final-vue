@@ -8,7 +8,8 @@ import VeeValidate from "vee-validate";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueToast from "vue-toast-notification";
-
+import VueChartsCSS from "vue.charts.css";
+import ChartsCSS from "charts.css";
 //graficas
 // import Chartkick from "vue-chartkick";
 // import Chart from "chart.js";
@@ -41,6 +42,8 @@ firebase.initializeApp({
 Vue.config.productionTip = false;
 Vue.use(VueToast);
 Vue.use(VeeValidate);
+Vue.use(VueChartsCSS);
+Vue.use(ChartsCSS);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 new Vue({
