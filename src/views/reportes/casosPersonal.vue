@@ -53,18 +53,21 @@ export default {
           text: '<i class="fas fa-file-excel"></i> ',
           titleAttr: "Reporte en Excel",
           className: "btn btn-success",
+          title: "Personal de la institución contagiados",
         },
         {
           extend: "pdfHtml5",
           text: '<i class="fas fa-file-pdf"></i> ',
           titleAttr: "Reporte en PDF",
           className: "btn btn-danger",
+          title: "Personal de la institución contagiados",
         },
         {
           extend: "print",
           text: '<i class="fa fa-print"></i> ',
           titleAttr: "Imprimir reporte",
           className: "btn btn-info",
+          title: "Personal de la institución contagiados",
         },
       ],
     });
