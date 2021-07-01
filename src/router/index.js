@@ -58,12 +58,18 @@ export const router = new Router({
       //  },
       // ]
     },
-    
+
     {
       path: "/alumno",
       name: "alumno",
       // lazy-loaded
       component: () => import("../views/admin/Alumno.vue"),
+    },
+    {
+      path: "/historialPruebas",
+      name: "/historialPruebas",
+      // lazy-loaded
+      component: () => import("../views/mobile/HistorialPruebas.vue"),
     },
     {
       path: "/alerta",
@@ -72,20 +78,20 @@ export const router = new Router({
       component: () => import("../views/admin/Alerta.vue"),
     },
     {
-      path: '/consulta',
-      name: 'consulta',
+      path: "/consulta",
+      name: "consulta",
       // lazy-loaded
-      component: () => import('../views/admin/Consulta.vue')
+      component: () => import("../views/admin/Consulta.vue"),
     },
     {
-      path: '/receta',
-      name: 'receta',
+      path: "/receta",
+      name: "receta",
       // lazy-loaded
-      component: () => import('../views/admin/Receta.vue')
+      component: () => import("../views/admin/Receta.vue"),
     },
     {
-      path: '/carrera',
-      name: 'carrera',
+      path: "/carrera",
+      name: "carrera",
       // lazy-loaded
       component: () => import("../views/admin/Carrera.vue"),
     },
