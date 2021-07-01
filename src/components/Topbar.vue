@@ -7,7 +7,11 @@
         </router-link>
       </div>
     </div>
-    <button class="btn" @click="mostrar"><i :class="notificacion"></i></button>
+    <button class="btn" @click="mostrar">
+      <i :class="notificacion"
+        ><span class="notss">{{ numero }}</span></i
+      >
+    </button>
 
     <div :class="not">
       <div v-for="resultado in resultadosP" :key="resultado.id_prueba">
@@ -75,9 +79,10 @@ export default {
       resultadosP: [],
       resultadosN: [],
       dispositivoMovil: false,
-      id_usuario: this.$store.state.auth.user.id,
+      id_usuario: "",
       desicion: false,
       hayNot: false,
+      numero: 0,
     };
   },
   computed: {
@@ -85,7 +90,7 @@ export default {
       return this.$store.state.auth.user;
     },
     notificacion() {
-      return this.hayNot
+      return !this.hayNot
         ? "fas fa-bell icono"
         : "fas fa-bell icono red rotate-center";
     },
@@ -139,17 +144,21 @@ export default {
         });
     },
     async getNotificaciones() {
+      this.id_usuario = this.$store.state.auth.user.id;
+      this.numero = 0;
       try {
         const pruebas = await axios.get(
           "https://proyecto-tedw.herokuapp.com/prueba/abierta/" +
             this.id_usuario
         );
         this.pruebas = pruebas.data;
-        console.log(pruebas);
+        console.log(this.pruebas.length);
         this.cargado = false;
         if (this.pruebas.length > 0) {
           this.hayNot = true;
+          this.numero += this.pruebas.length;
         }
+        console.log(this.hayNot);
       } catch (err) {
         console.log(err);
       }
@@ -160,11 +169,13 @@ export default {
             "/positivo"
         );
         this.resultadosP = resultadosP.data;
-        console.log(this.resultadosP);
+
         this.cargado = false;
-        if (this.resultadoP.length > 0) {
+        if (this.resultadosP.length > 0) {
           this.hayNot = true;
+          this.numero += this.resultadosP.length;
         }
+        console.log(this.hayNot);
       } catch (err) {
         console.log(err);
       }
@@ -177,12 +188,15 @@ export default {
         this.resultadosN = resultadosN.data;
         console.log(this.resultadosN);
         this.cargado = false;
-        if (this.resultadoN.length > 0) {
+        if (this.resultadosN.length > 0) {
           this.hayNot = true;
+          this.numero += this.resultadosN.length;
         }
+        console.log(this.hayNot);
       } catch (err) {
         console.log(err);
       }
+      console.log(this.hayNot);
     },
   },
   created() {
@@ -218,11 +232,11 @@ export default {
   height: 3rem;
 }
 .notificaciones {
-  position: fixed;
-  right: 10px;
+  position: absolute;
+  right: 0px;
   top: 47px;
   width: 25%;
-
+  height: 90vh;
   background: rgba(54, 54, 54, 0.61);
   padding: 20px;
   z-index: 99;
@@ -321,5 +335,12 @@ export default {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+.notss {
+  font-size: 1rem;
+  position: fixed;
+  left: 0.4rem;
+  top: 0.2rem;
+  color: white;
 }
 </style>
