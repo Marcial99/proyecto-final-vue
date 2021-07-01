@@ -1,10 +1,10 @@
 <template>
     <div class="container-fluid">
 <form onsubmit="return false">
-  <!-- TODO: enlazar los datos a la tabla correspondiente y hacer el envio por axios -->
+  <!-- TODO: enlazar los datos a la tabla correspondiente y falta guardar las direcciones de las fotos-->
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Sintomas</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="sintomas">
     <div id="emailHelp" class="form-text">Describa los sintomas aqui</div>
   </div>
   <div class="mb-3">
@@ -27,6 +27,8 @@
 // @ is an alias to /src
 
 import firebase from 'firebase'
+import axios from 'axios'
+import vue from 'vue';
 export default {
   name: 'Solicitud_Medico',
   data() {
@@ -35,10 +37,36 @@ export default {
     uploadValue:0,
     picture:null,
     email:this.$store.state.auth.user.email,
+    id_users:this.$store.state.auth.user.id,
+    status:"abierta",
+    id_medico:"",
+    sintomas:"",
+    foto:"",
     extension:""
     }
   },
   methods: {
+    uploadForm(){
+axios.post("https://proyecto-tedw.herokuapp.com/consultas",{
+  sintomas:this.sintomas,
+  id_medico:"",
+  id_users: this.id_users,
+  status: this.status,
+  fotos:this.foto,
+})
+.then(res => {
+  console.log(res)
+   vue.$toast.open({
+        message: "solicitud enviada",
+        type: "success",
+        duration: 5000,
+        dismissible: true,
+      });
+})
+.catch(err => {
+  console.error(err); 
+});
+    },
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
       console.log(this.selectedFile)
@@ -48,6 +76,7 @@ export default {
       this.extension = str.slice(inicio+1,final)
     },
     onUpload(){
+      // this.uploadForm();
       var n = Date.now();
       var storageRef = firebase.storage().ref(`/imagenes/${n}_${this.email}.${this.extension}`);;
       if(this.selectedFile.type=="application/pdf"){
@@ -63,6 +92,8 @@ task.on(`state_changed`,snapshot=>{
   //downloadUrl
   task.snapshot.ref.getDownloadURL().then((url)=>{
     this.picture=url;
+    this.foto=url;
+    this.uploadForm();
     console.log(this.picture)
   });
   });
