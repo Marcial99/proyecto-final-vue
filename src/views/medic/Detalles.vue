@@ -190,18 +190,25 @@
 
 <script>
 import axios from "axios";
+import UserService from "../../services/user.service";
 export default {
   data() {
+    var id = this.$store.state.auth.user.id;
     return {
       id_encuesta: this.$route.query.id_encuesta,
       encuesta: [],
       tipo_prueba: "",
       activoo: false,
+      medico: 0,
+      id_usuario: id
     };
   },
   computed: {
     activo() {
       return this.activoo;
+    },
+    currentUser() {
+      return this.$store.state.auth.user;
     },
   },
   methods: {
@@ -217,6 +224,18 @@ export default {
         console.log(err);
       }
     },
+    async getMedico() {
+      try {
+        const medico = await axios.get(
+          "https://proyecto-tedw.herokuapp.com/usuario/medicos/" + this.id_usuario
+        );
+        this.medico = medico.data[0];
+        console.log(medico);
+        this.cargado = false;
+      } catch (err) {
+        console.log(err);
+      }
+    },
     submitPrueba() {
       axios
         .post("https://proyecto-tedw.herokuapp.com/prueba", {
@@ -224,7 +243,7 @@ export default {
           resultado: "Sin resultado",
           documento: "Sin documento",
           status: "abierta",
-          id_medico: 2,
+          id_medico: this.medico.id_medico,
           id_users: this.encuesta.id_users,
         })
         .then((response) => {
@@ -272,6 +291,7 @@ export default {
   },
   created() {
     this.getEncuesta();
+    this.getMedico();
   },
 };
 </script>

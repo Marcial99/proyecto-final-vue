@@ -24,12 +24,12 @@
         tag="button"
         exact
         class="side-btn"
-        to="/trazabilidad_correos"
-        v-if="currentUser"
+        to="/verPruebas"
+        v-if="showMedicBoard || showAdminBoard"
       >
         <div class="link-container">
-          <i class="fas fa-envelope menu-icon"></i>
-          <span class="texto-item"> Trazabilidad Correos</span>
+          <i class="fas fa-vials menu-icon"></i>
+          <span class="texto-item">Actualizar resultado de pruebas</span>
         </div>
       </router-link>
 
