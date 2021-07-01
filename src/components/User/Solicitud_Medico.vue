@@ -6,6 +6,11 @@
     <label for="exampleInputEmail1" class="form-label">Sintomas</label>
     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="sintomas">
     <div id="emailHelp" class="form-text">Describa los sintomas aqui</div>
+     <label for="password">Medicos.</label>
+            <select v-model="medico.id" class="form-select" required>
+<option v-for="c in medicos" v-bind:value="c">{{medico.nombre_medico[c-1]}}</option>
+</select>
+
     <select v-model="tipo" class="form-select" aria-label="Default select example">
   <option disabled value="">Seleccione un elemento</option>
   <option>virtual</option>
@@ -15,7 +20,7 @@
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Evidencias (fotos)</label>
-    <input type="file" class="form-control" id="exampleInputPassword1" @change="onFileSelected" accept="image/jpeg,image/png,application/pdf">
+    <input type="file" class="form-control" id="exampleInputPassword1" @change="onFileSelected" accept="image/jpeg,image/png,application/pdf,video/*">
   </div>
   <div class="mb-3">
     <progress :value="uploadValue" class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" 
@@ -45,21 +50,43 @@ export default {
     email:this.$store.state.auth.user.email,
     id_users:this.$store.state.auth.user.id,
     status:"abierta",
-    id_medico:"",
     sintomas:"",
     foto:"",
     tipo:"",
-    extension:""
+    extension:"",
+    video:"",
+    medicos:[],
+    names:[],
+    medico:{id:"",nombre_medico:"",}
     }
+  },
+   mounted() {
+    // axios.get("https://proyecto-tedw.herokuapp.com/medico/all/id")
+    // .then(res => {
+    //   console.log(res)
+    // })
+    // .catch(err => {
+    //   console.error(err); 
+    // })
+   fetch("https://proyecto-tedw.herokuapp.com/medico")
+      .then((res) => res.json())
+      .then((data) => {
+        data.forEach((item) => {
+          this.medicos.push(item.id_medico);
+          this.names.push(item.nombre);
+        });
+this.medico.id=this.carreras;
+ this.medico.nombre_medico=this.names;
+      });
   },
   methods: {
     uploadForm(){
 axios.post("https://proyecto-tedw.herokuapp.com/consultas",{
   sintomas:this.sintomas,
-  id_medico:"",
+  id_medico:this.medico.id,
   id_users: this.id_users,
   status: this.status,
-  fotos:this.foto,
+  foto:this.foto,
   tipo:this.tipo,
 })
 .then(res => {
@@ -82,6 +109,9 @@ axios.post("https://proyecto-tedw.herokuapp.com/consultas",{
       var inicio = str.search("/");
       var final = str.length;
       this.extension = str.slice(inicio+1,final)
+      var iniciovideo = 0;
+      var finalvideo= str.search("/");
+      this.video = str.slice(iniciovideo,finalvideo);
     },
     onUpload(){
       // this.uploadForm();
@@ -89,6 +119,8 @@ axios.post("https://proyecto-tedw.herokuapp.com/consultas",{
       var storageRef = firebase.storage().ref(`/imagenes/${n}_${this.email}.${this.extension}`);;
       if(this.selectedFile.type=="application/pdf"){
        storageRef = firebase.storage().ref(`/documentos/${n}_${this.email}.${this.extension}`);
+      }else if(this.video=="video"){
+         storageRef = firebase.storage().ref(`/videos/${n}_${this.email}.${this.extension}`);
       }
 
 const task = storageRef.put(this.selectedFile);
@@ -100,7 +132,8 @@ task.on(`state_changed`,snapshot=>{
   //downloadUrl
   task.snapshot.ref.getDownloadURL().then((url)=>{
     this.picture=url;
-    this.foto=url;
+    this.foto=this.picture;
+    console.log(this.foto);
     this.uploadForm();
     console.log(this.picture)
   });
