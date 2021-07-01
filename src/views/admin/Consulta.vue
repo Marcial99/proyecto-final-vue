@@ -47,6 +47,7 @@
       <button class="btn btn-danger mr-3" @click="deleteForm">
         Delete consult
       </button>
+      
       <hr />
 
       <div class="row mb-5">
@@ -65,6 +66,8 @@
                 <th>Id medico</th>
                 <th>Id usuario</th>
                 <th>Status</th>
+                <th>Foto</th>
+                <th>Tipo</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -88,6 +91,7 @@ export default {
       id_medico: "",
       id_users: "",
       status: "",
+      tipo:"",
       dataTable: null,
     };
   },
@@ -231,6 +235,8 @@ export default {
               consulta.id_medico,
               consulta.id_users,
               consulta.status,
+               `<a href="${consulta.foto}" target="_blank" rel="noopener noreferrer">`+consulta.foto+'</a>',
+              consulta.tipo
             ])
             .draw(false);
         });
