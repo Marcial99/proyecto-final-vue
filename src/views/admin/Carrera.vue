@@ -14,7 +14,7 @@
         </div>
         <div class="col">
           <label>Carrera clave</label>
-          <input type="text" class="form-control" v-model="clv_carrera" />
+          <input type="text" class="form-control" v-model="clv_carrera"  maxlength="8"/>
         </div>
       </div>
       <button class="btn btn-info mr-4" @click="submitForm">Add career</button>
@@ -62,18 +62,6 @@ export default {
     };
   },
   methods: {
-    addCareer() {
-      this.dataTable.row
-        .add([
-          this.id_carrera,
-          '<a href="#">' + this.carrera + "</a>",
-          this.clv_carrera,
-        ])
-        .draw(false);
-      this.id_carrera = "";
-      this.carrera = "";
-      this.clv_carrera = "";
-    },
     submitForm() {
       axios
         .post("https://proyecto-tedw.herokuapp.com/carreras", {
@@ -100,7 +88,7 @@ export default {
       });
         });
      
-setTimeout(function(){location.reload()},5000)
+setTimeout(function(){location.reload()},3000)
     },
     deleteForm() {
       axios({
@@ -131,7 +119,7 @@ setTimeout(function(){location.reload()},5000)
       });
         });
      
-setTimeout(function(){location.reload()},5000)
+setTimeout(function(){location.reload()},3000)
 
     },
     updateForm() {
@@ -162,13 +150,36 @@ setTimeout(function(){location.reload()},5000)
       });
         });
         
-setTimeout(function(){location.reload()},5000)
+setTimeout(function(){location.reload()},3000)
     },
   },
   mounted() {
     let carreras = [];
 
-    this.dataTable = $("#user-table").DataTable({});
+    this.dataTable = $("#user-table").DataTable({
+        responsive: "true",
+      dom: "Bfrtilp",
+      buttons: [
+        {
+          extend: "excelHtml5",
+          text: '<i class="fas fa-file-excel"></i> ',
+          titleAttr: "Exportar a Excel",
+          className: "btn btn-success",
+        },
+        {
+          extend: "pdfHtml5",
+          text: '<i class="fas fa-file-pdf"></i> ',
+          titleAttr: "Exportar a PDF",
+          className: "btn btn-danger",
+        },
+        {
+          extend: "print",
+          text: '<i class="fa fa-print"></i> ',
+          titleAttr: "Imprimir",
+          className: "btn btn-info",
+        },
+      ],
+    });
     const url = "https://proyecto-tedw.herokuapp.com/carreras";
     fetch(url)
       .then((res) => res.json())

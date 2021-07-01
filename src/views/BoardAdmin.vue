@@ -140,6 +140,36 @@
               </div>
               <div class="col-md-8">
                 <div class="card-body">
+                  <h5 class="card-title font-weight-bold">Permisos</h5>
+                  <p class="card-text">
+                    With supporting text below as a natural lead-in to
+                    additional content.
+                  </p>
+                  <router-link to="/permisos">
+                    <button
+                      type="button"
+                      class="btn btn-primary font-weight-bold"
+                    >
+                      Administrar
+                    </button>
+                  </router-link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card text-white bg-success mt-4">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img
+                  src="https://picsum.photos/500?grayscale"
+                  class="card-img-top m-0"
+                  alt="image"
+                />
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
                   <h5 class="card-title font-weight-bold">Usuarios</h5>
                   <p class="card-text">
                     With supporting text below as a natural lead-in to

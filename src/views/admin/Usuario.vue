@@ -170,7 +170,9 @@ setTimeout(function(){location.reload()},5000);
   mounted() {
     let users = [];
 
-    this.dataTable = $("#user-table").DataTable({});
+    this.dataTable = $("#user-table").DataTable({
+      
+    });
     const url = "https://proyecto-tedw.herokuapp.com/usuario";
     fetch(url)
       .then((res) => res.json())

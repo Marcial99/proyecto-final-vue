@@ -54,7 +54,7 @@
         </div>
         <div class="col">
           <label>Correo</label>
-          <input type="email" class="form-control" v-model="email" />
+          <input type="email" class="form-control" v-model="email" maxlength="32" />
         </div>
       </div>
 
@@ -82,8 +82,8 @@
                 <th>Alumno a_paterno</th>
                 <th>Alumno a_materno</th>
                 <th>Alumno semestre</th>
-                <th>Alumno id_users</th>
                 <th>Alumno id_carrera</th>
+                <th>Alumno id_users</th>
                 <th>Alumno email</th>
               </tr>
             </thead>
@@ -146,7 +146,7 @@ export default {
         });
      
     
-      setTimeout(function(){location.reload()},5000)
+      setTimeout(function(){location.reload()},4000)
     },
     deleteForm() {
       axios({
@@ -181,7 +181,7 @@ export default {
       });
         });
     
-     setTimeout(function(){location.reload()},5000)
+     setTimeout(function(){location.reload()},4000)
     },
     updateForm() {
       axios
@@ -213,13 +213,36 @@ export default {
         dismissible: true,
       });
         });
-     setTimeout(function(){location.reload()},5000)
+     setTimeout(function(){location.reload()},4000)
     },
   },
   mounted() {
     let alumnos = [];
 
-    this.dataTable = $("#user-table").DataTable({});
+    this.dataTable = $("#user-table").DataTable({
+        responsive: "true",
+      dom: "Bfrtilp",
+      buttons: [
+        {
+          extend: "excelHtml5",
+          text: '<i class="fas fa-file-excel"></i> ',
+          titleAttr: "Exportar a Excel",
+          className: "btn btn-success",
+        },
+        {
+          extend: "pdfHtml5",
+          text: '<i class="fas fa-file-pdf"></i> ',
+          titleAttr: "Exportar a PDF",
+          className: "btn btn-danger",
+        },
+        {
+          extend: "print",
+          text: '<i class="fa fa-print"></i> ',
+          titleAttr: "Imprimir",
+          className: "btn btn-info",
+        },
+      ],
+    });
     const url = "https://proyecto-tedw.herokuapp.com/alumnos";
     fetch(url)
       .then((res) => res.json())
@@ -235,8 +258,8 @@ export default {
               alumno.a_paterno,
               alumno.a_materno,
               alumno.semestre,
-              alumno.id_users,
               alumno.id_carrera,
+              alumno.id_users,
               alumno.email
             ])
             .draw(false);
