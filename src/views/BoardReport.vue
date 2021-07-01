@@ -70,13 +70,13 @@
     </div>
     <br />
     <hr />
-    <h1 class="text-center mt-2">Graficas</h1>
+    <h1 class="text-center mt-2">Gráficas</h1>
     <hr />
     <div class="card">
       <h5 class="card-header">Carrera y departamento</h5>
       <div class="card-body">
         <p class="card-text">
-          Grafica de casos positivos por carrera y departamento
+          Gráfica de casos positivos por carrera y departamento
         </p>
 
         <router-link to="/graCasosCarrera">
@@ -90,6 +90,39 @@
       </div>
     </div>
     <br />
+    <div class="card">
+      <h5 class="card-header">Carrera y departamento</h5>
+      <div class="card-body">
+        <p class="card-text">
+          Gráfica de encuestas aplicadas por carrera y departamento
+        </p>
+
+        <router-link to="/graCasosEncuesta">
+          <button
+            type="button"
+            class="btn btn-primary rounded font-weight-bold"
+          >
+            Ver
+          </button>
+        </router-link>
+      </div>
+    </div>
+    <br />
+    <div class="card">
+      <h5 class="card-header">Medicos</h5>
+      <div class="card-body">
+        <p class="card-text">Gráfica de consultas atendidas por médicos</p>
+
+        <router-link to="/graCasosMedico">
+          <button
+            type="button"
+            class="btn btn-primary rounded font-weight-bold"
+          >
+            Ver
+          </button>
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 

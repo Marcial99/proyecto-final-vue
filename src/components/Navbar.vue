@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <div class="title text-center">
-      <img class="image " src="img/logo.png" alt="" />
+      <img class="image" src="img/logo.png" alt="" />
       <span class="titulo">TecNM Celaya</span>
     </div>
     <div class="menu-items">
@@ -151,7 +151,7 @@
       >
         <div class="link-container">
           <i class="fas fa-clipboard menu-icon"></i>
-          <span class="texto-item"> Reportes</span>
+          <span class="texto-item"> Reportes y Gráficas</span>
         </div>
       </router-link>
       <router-link
