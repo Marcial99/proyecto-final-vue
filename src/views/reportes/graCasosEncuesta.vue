@@ -1,12 +1,12 @@
 <template>
   <div class="container border mt-5 mb-5 p-3 shadow-lg rounded">
-    <h1 class="text-center">Conteo de casos activos</h1>
+    <h1 class="text-center">Encuestas aplicadas</h1>
     <hr />
     <br /><br />
 
-    <h4 class="text-center">Casos activos por carrera</h4>
+    <h4 class="text-center">Encuestas aplicadas por carrera</h4>
     <charts-css
-      heading="Casos activos por carrera"
+      heading="Encuestas realizadas por carrera"
       type="column"
       :labels="Labels"
       :datasets="Dataset1"
@@ -17,9 +17,9 @@
       show-tooltips
     />
     <br />
-    <h4 class="text-center">Casos activos por departamento</h4>
+    <h4 class="text-center">Encuestas aplicadas por departamento</h4>
     <charts-css
-      heading="Casos activos por carrera"
+      heading="Encuestas realizadas por carrera"
       type="column"
       :labels="Labels"
       :datasets="Dataset2"
@@ -35,14 +35,14 @@
 <script>
 import axios from "axios";
 export default {
-  name: "graCasosCarrera",
+  name: "graCasosEncuesta",
   data() {
     return {
-      Labels: ["Casos activos"],
+      Labels: ["Encuestas realizadas"],
       Dataset1: [
         {
           name: "Sistemas",
-          values: [4],
+          values: [3],
         },
         {
           name: "Industrial",
@@ -79,12 +79,12 @@ export default {
       //
       try {
         const casos = await axios.get(
-          "https://proyecto-tedw.herokuapp.com/alumnos/total/contagios"
+          "https://proyecto-tedw.herokuapp.com/encuestas/carrera/encuestas"
         );
         for (let a = 0; a < casos.data.length; a++) {
           this.data[a] = {
             name: casos.data[a].carrera,
-            values: [parseInt(casos.data[a].contagios)],
+            values: [parseInt(casos.data[a].encuestas)],
           };
         }
         this.Dataset1 = this.data;
@@ -95,12 +95,12 @@ export default {
       }
       try {
         const casos = await axios.get(
-          "https:proyecto-tedw.herokuapp.com/personal/total/contagios"
+          "https://proyecto-tedw.herokuapp.com/encuestas/dep/encuestas"
         );
         for (let a = 0; a < casos.data.length; a++) {
           this.data2[a] = {
             name: casos.data[a].departamento,
-            values: [parseInt(casos.data[a].contagios)],
+            values: [parseInt(casos.data[a].encuestas)],
           };
         }
         this.Dataset2 = this.data2;
