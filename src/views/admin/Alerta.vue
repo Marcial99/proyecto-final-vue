@@ -22,7 +22,7 @@
         </div>
         <div class="col">
           <label>Id usuario</label>
-          <input type="text" class="form-control" v-model="id_usuario" />
+          <input type="text" class="form-control" v-model="id_users" />
         </div>
       </div>
       <button class="btn btn-info mr-3" @click="submitForm">Add career</button>
@@ -69,7 +69,7 @@ export default {
       tipo_alerta: "",
       contenido: "",
       status: "",
-      id_usuario: "",
+      id_users: "",
       dataTable: null,
     };
   },
@@ -80,7 +80,7 @@ export default {
           tipo_alerta: this.tipo_alerta,
           contenido: this.contenido,
           status: this.status,
-          id_usuario: this.id_usuario,
+          id_users: this.id_users,
         })
         .then(function(response) {
           console.log(response);
@@ -110,7 +110,7 @@ setTimeout(function(){location.reload()},5000)
           tipo_alerta: this.tipo_alerta,
           contenido: this.contenido,
           status: this.status,
-          id_usuario: this.id_usuario,
+          id_users: this.id_users,
         })
         .then(function(response) {
           console.log(response);
@@ -140,7 +140,7 @@ setTimeout(function(){location.reload()},5000)
           tipo_alerta: this.tipo_alerta,
           contenido: this.contenido,
           status: this.status,
-          id_usuario: this.id_usuario,
+          id_users: this.id_users,
         },
       })
         .then(function(response) {
@@ -182,7 +182,7 @@ setTimeout(function(){location.reload()},5000)
               alerta.tipo_alerta,
               alerta.contenido,
               alerta.status,
-              alerta.id_usuario,
+              alerta.id_users,
             ])
             .draw(false);
         });

@@ -20,14 +20,7 @@
           <label>Contraseña</label>
           <input type="text" class="form-control" v-model="password" />
         </div>
-        <div class="col">
-          <label>Fecha de creacion</label>
-          <input type="date" class="form-control" v-model="createdAt" />
-        </div>
-        <div class="col">
-          <label>Fecha de actualizacion</label>
-          <input type="date" class="form-control" v-model="updatedAt" />
-        </div>
+
       </div>
       <button class="btn btn-info mr-3" @click="submitForm">Add users</button>
       <button class="btn btn-warning mr-3" @click="updateForm">
@@ -67,6 +60,7 @@
 <script>
 import axios from "axios";
 import Vue from 'vue';
+import bcrypt from 'bcryptjs';
 export default {
   name: "Usuario",
   data() {
@@ -82,11 +76,13 @@ export default {
   },
   methods: {
     submitForm() {
+      const salt = bcrypt.genSaltSync(8);
+       let encript = bcrypt.hashSync(this.password, salt);
       axios
         .post("https://proyecto-tedw.herokuapp.com/usuario", {
           username: this.username,
           email: this.email,
-          password: this.password,
+          password: encript,
           createdAt: this.createdAt,
           updatedAt: this.updatedAt,
         })
@@ -115,19 +111,12 @@ setTimeout(function(){location.reload()},5000);
     deleteForm() {
       axios({
         method: "delete",
-        url: "https://proyecto-tedw.herokuapp.com/usuario/" + this.id,
-        data: {
-          username: this.username,
-          email: this.email,
-          password: this.password,
-          createdAt: this.createdAt,
-          updatedAt: this.updatedAt,
-        },
+        url: "https://proyecto-tedw.herokuapp.com/usuario/" + this.id
       })
         .then(function(response) {
           console.log(response);
            Vue.$toast.open({
-        message: response.data.detail,
+        message: response.data,
         type: "error",
         duration: 5000,
         dismissible: true,
@@ -146,18 +135,20 @@ setTimeout(function(){location.reload()},5000);
 // setTimeout(function(){location.reload()},5000);
     },
     updateForm() {
+      const salt = bcrypt.genSaltSync(8);
+       let encript = bcrypt.hashSync(this.password, salt);
       axios
         .put("https://proyecto-tedw.herokuapp.com/usuario/" + this.id, {
           username: this.username,
           email: this.email,
-          password: this.password,
+          password: encript,
           createdAt: this.createdAt,
           updatedAt: this.updatedAt,
         })
         .then(function(response) {
           console.log(response);
              Vue.$toast.open({
-        message: response.data.detail,
+        message: response.data,
         type: "warning",
         duration: 5000,
         dismissible: true,
@@ -200,6 +191,8 @@ setTimeout(function(){location.reload()},5000);
             .draw(false);
         });
       });
+      const salt = bcrypt.genSaltSync(8)
+          console.log( bcrypt.hashSync(this.password, salt))
   },
 };
 </script>

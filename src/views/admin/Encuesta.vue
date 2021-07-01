@@ -6,41 +6,157 @@
       <div class="row mb-3">
         <div class="col">
           <label>Id encuesta</label>
-          <input type="text" />
+          <input type="number" step="1" v-model="id_encuesta"/>
         </div>
         <div class="col">
           <label>modalidad</label>
-          <input type="text" class="form-control" />
+          <input type="text" class="form-control" v-model="modalidad" />
         </div>
         <div class="col">
           <label>Id usuario</label>
-          <input type="text" class="form-control" />
+          <input type="text" class="form-control" v-model="id_users" />
         </div>
         <div class="col">
           <label>fecha</label>
-          <input type="text" class="form-control" />
+          <input type="text" class="form-control" v-model="fecha"/>
         </div>
+        <label>preguntas</label>
         <div class="col">
-          <label>preguntas</label>
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
-          <input type="text" class="form-control" placeholder="r" />
+          
+         <div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 1</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" 
+   v-model="r1"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 2</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" 
+   v-model="r2"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 3</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" 
+   v-model="r3"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 4</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" 
+   v-model="r4"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 5</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" 
+   v-model="r5"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 6</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" 
+   v-model="r6"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 7</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" 
+   v-model="r7"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 8</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" 
+   v-model="r8"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 9</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" 
+   v-model="r9"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 10</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" 
+   v-model="r10"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 11</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" 
+   v-model="r11"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 12</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" 
+   v-model="r12"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 13</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" 
+   v-model="r13"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
+<div class="form-check form-check-inline">
+     <label class="form-check-label" for="inlineCheckbox1">pregunta 14</label>
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" 
+   v-model="r14"
+  true-value="true"
+  false-value="false"
+  >
+  
+</div>
         </div>
         <div class="col">
           <label>Resultado</label>
-          <input type="text" class="form-control" placeholder="resultado" />
+          <input type="text" class="form-control" placeholder="resultado" v-model="resultado"/>
         </div>
+      </div>
+      <div class="row">
+        
       </div>
       <button class="btn btn-info mr-3" @click="submitForm">Add survey</button>
       <button class="btn btn-warning mr-3" @click="updateForm">
@@ -50,7 +166,6 @@
         Delete survey
       </button>
       <hr />
-
       <div class="row mb-5">
         <div class="col overflow-auto">
           <table
@@ -102,20 +217,20 @@ export default {
       modalidad: "",
       id_users: "",
       fecha: "",
-      r1: "",
-      r2: "",
-      r3: "",
-      r4: "",
-      r5: "",
-      r6: "",
-      r7: "",
-      r8: "",
-      r9: "",
-      r10: "",
-      r11: "",
-      r12: "",
-      r13: "",
-      r14: "",
+      r1: false,
+      r2: false,
+      r3: false,
+      r4: false,
+      r5: false,
+      r6: false,
+      r7: false,
+      r8: false,
+      r9: false,
+      r10: false,
+      r11: false,
+      r12: false,
+      r13: false,
+      r14: false,
       resultado: "",
       dataTable: null,
       status: "",
@@ -164,36 +279,15 @@ export default {
           });
         });
 
-      setTimeout(function() {
-        location.reload();
-      }, 5000);
+      // setTimeout(function() {
+      //   location.reload();
+      // }, 5000);
     },
     deleteForm() {
       axios({
         method: "delete",
         url:
-          "https://proyecto-tedw.herokuapp.com/encuestas/" + this.id_encuesta,
-        data: {
-          modalidad: this.modalidad,
-          id_users: this.id_users,
-          fecha: this.fecha,
-          r1: this.r1,
-          r2: this.r2,
-          r3: this.r3,
-          r4: this.r4,
-          r5: this.r5,
-          r6: this.r6,
-          r7: this.r7,
-          r8: this.r8,
-          r9: this.r9,
-          r10: this.r10,
-          r11: this.r11,
-          r12: this.r12,
-          r13: this.r13,
-          r14: this.r14,
-          resultado: this.resultado,
-          status: this.status,
-        },
+          "https://proyecto-tedw.herokuapp.com/encuestas/" + this.id_encuesta
       })
         .then(function(response) {
           console.log(response);
@@ -214,9 +308,9 @@ export default {
             dismissible: true,
           });
         });
-      setTimeout(function() {
-        location.reload();
-      }, 5000);
+      // setTimeout(function() {
+      //   location.reload();
+      // }, 5000);
     },
     updateForm() {
       axios
@@ -262,9 +356,9 @@ export default {
             dismissible: true,
           });
         });
-      setTimeout(function() {
-        location.reload();
-      }, 5000);
+      // setTimeout(function() {
+      //   location.reload();
+      // }, 5000);
     },
   },
   mounted() {

@@ -58,6 +58,7 @@ export const router = new Router({
       //  },
       // ]
     },
+    
     {
       path: '/alumno',
       name: 'alumno',
@@ -69,6 +70,18 @@ export const router = new Router({
       name: 'alerta',
       // lazy-loaded
       component: () => import('../views/admin/Alerta.vue')
+    },
+    {
+      path: '/consulta',
+      name: 'consulta',
+      // lazy-loaded
+      component: () => import('../views/admin/Consulta.vue')
+    },
+    {
+      path: '/receta',
+      name: 'receta',
+      // lazy-loaded
+      component: () => import('../views/admin/Receta.vue')
     },
     {
       path: '/carrera',

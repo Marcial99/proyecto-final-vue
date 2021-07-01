@@ -44,32 +44,36 @@
 
 <script>
 import axios from "axios";
+import vue from "vue";
 export default {
   name: 'Profile',
    data() {
     return {
       id: this.$store.state.auth.user.id,
-      email: this.$store.state.auth.user.email
+      email: this.$store.state.auth.user.email,
+      bandera:false,
     }
   },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
-    },
+    }
   },
   methods: {
     logOut() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');
     },
+
     //TODO: CREAR EL METODO QUE ACTUALIZA AL ALUMNO CUANDO ENCUENTRA SU EMAIL(MODIFICAR LA TABLA ALUMNO PARA ELLO)
     updateAlumno(){
-       axios.put("https://proyecto-tedw.herokuapp.com/alumnos/updateid/"+this.email,{
+      if(this.bandera == true){
+    axios.put("https://proyecto-tedw.herokuapp.com/alumnos/updateid/"+this.email,{
         id_users: this.id,
       })
       .then(res => {
         console.log(res)
-          this.$toast.open({
+          vue.$toast.open({
         message:"ha completado su registro",
         type: "success",
         duration: 5000,
@@ -78,13 +82,47 @@ export default {
       })
       .catch(err => {
         console.error(err); 
+        vue.$toast.open({
+        message:"ha ocurrido algo, revise su registro",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+      });
+      }else{
+    axios.put("https://proyecto-tedw.herokuapp.com/personal/updateid/"+this.email,{
+        id_users: this.id,
       })
+      .then(res => {
+        console.log(res)
+          vue.$toast.open({
+        message:"ha completado su registro",
+        type: "success",
+        duration: 5000,
+        dismissible: true,
+      });
+      })
+      .catch(err => {
+        console.error(err); 
+        vue.$toast.open({
+        message:"ha ocurrido algo, revise su registro",
+        type: "error",
+        duration: 5000,
+        dismissible: true,
+      });
+      });
+      }
+   
     }
   },
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
+    const pattern = /[0-9]{8}@itcelaya.edu.mx/i;
+      console.log(pattern.test(this.email));
+      this.bandera=pattern.test(this.email);
+      console.log(this.bandera)
   }
 };
 </script>
