@@ -246,6 +246,18 @@ export const router = new Router({
       component: () => import("../views/reportes/graCasosCarrera.vue"),
     },
     {
+      path: "/graCasosEncuesta",
+      name: "graCasosEncuesta",
+      // lazy-loaded
+      component: () => import("../views/reportes/graCasosEncuesta.vue"),
+    },
+    {
+      path: "/graCasosMedico",
+      name: "graCasosMedico",
+      // lazy-loaded
+      component: () => import("../views/reportes/graCasosMedico.vue"),
+    },
+    {
       path: "/trazabilidad_correos",
       name: "TrazabilidadCorreos",
       // lazy-loaded

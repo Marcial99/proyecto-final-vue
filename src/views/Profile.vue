@@ -81,6 +81,7 @@ export default {
     logOut() {
       this.$store.dispatch("auth/logout");
       this.$router.push("/login");
+      location.reload();
     },
 
     //TODO: CREAR EL METODO QUE ACTUALIZA AL ALUMNO CUANDO ENCUENTRA SU EMAIL(MODIFICAR LA TABLA ALUMNO PARA ELLO)

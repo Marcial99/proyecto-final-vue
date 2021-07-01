@@ -1,12 +1,12 @@
 <template>
   <div class="container border mt-5 mb-5 p-3 shadow-lg rounded">
-    <h1 class="text-center">Conteo de casos activos</h1>
+    <h1 class="text-center">Consultas atendidas</h1>
     <hr />
     <br /><br />
 
-    <h4 class="text-center">Casos activos por carrera</h4>
+    <h4 class="text-center">Consultas atendidas por médicos</h4>
     <charts-css
-      heading="Casos activos por carrera"
+      heading="Consultas atendidas por medicos"
       type="column"
       :labels="Labels"
       :datasets="Dataset1"
@@ -17,46 +17,20 @@
       show-tooltips
     />
     <br />
-    <h4 class="text-center">Casos activos por departamento</h4>
-    <charts-css
-      heading="Casos activos por carrera"
-      type="column"
-      :labels="Labels"
-      :datasets="Dataset2"
-      id="my-chart2"
-      :data-spacing="10"
-      show-legend
-      show-labels
-      show-tooltips
-    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
-  name: "graCasosCarrera",
+  name: "graCasosMedico",
   data() {
     return {
-      Labels: ["Casos activos"],
+      Labels: ["Consultas atendidas"],
       Dataset1: [
         {
           name: "Sistemas",
-          values: [4],
-        },
-        {
-          name: "Industrial",
-          values: [9],
-        },
-        {
-          name: "Ambiental",
-          values: [5],
-        },
-      ],
-      Dataset2: [
-        {
-          name: "Sistemas",
-          values: [4],
+          values: [3],
         },
         {
           name: "Industrial",
@@ -68,7 +42,6 @@ export default {
         },
       ],
       data: [],
-      data2: [],
     };
   },
   created() {
@@ -79,31 +52,15 @@ export default {
       //
       try {
         const casos = await axios.get(
-          "https://proyecto-tedw.herokuapp.com/alumnos/total/contagios"
+          "https://proyecto-tedw.herokuapp.com/consultas/reportes/total"
         );
         for (let a = 0; a < casos.data.length; a++) {
           this.data[a] = {
-            name: casos.data[a].carrera,
-            values: [parseInt(casos.data[a].contagios)],
+            name: casos.data[a].nombre,
+            values: [parseInt(casos.data[a].consultas)],
           };
         }
         this.Dataset1 = this.data;
-        console.log(this.data);
-        this.cargado = false;
-      } catch (err) {
-        console.log(err);
-      }
-      try {
-        const casos = await axios.get(
-          "https:proyecto-tedw.herokuapp.com/personal/total/contagios"
-        );
-        for (let a = 0; a < casos.data.length; a++) {
-          this.data2[a] = {
-            name: casos.data[a].departamento,
-            values: [parseInt(casos.data[a].contagios)],
-          };
-        }
-        this.Dataset2 = this.data2;
         console.log(this.data);
         this.cargado = false;
       } catch (err) {
