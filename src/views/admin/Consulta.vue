@@ -39,6 +39,10 @@
           <label>Status</label>
           <input type="text" class="form-control" v-model="status" />
         </div>
+         <div class="col">
+          <label>Tipo</label>
+          <input type="text" class="form-control" v-model="tipo" />
+        </div>
       </div>
       <button class="btn btn-info mr-3" @click="submitForm">Add consult</button>
       <button class="btn btn-warning mr-3" @click="updateForm">
@@ -103,6 +107,8 @@ export default {
           id_medico: this.id_medico,
           id_users: this.id_users,
           status: this.status,
+          foto:"",
+          tipo:this.tipo
         })
         .then(function (response) {
           console.log(response);
@@ -166,6 +172,8 @@ export default {
             id_medico: this.id_medico,
             id_users: this.id_users,
             status: this.status,
+            foto:"",
+            tipo:this.tipo
           }
         )
         .then(function (response) {

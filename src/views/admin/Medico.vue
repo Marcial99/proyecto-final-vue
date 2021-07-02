@@ -130,19 +130,13 @@ Vue.$toast.open({
       });
         });
     
-setTimeout(function(){location.reload()},5000);
+setTimeout(function(){location.reload()},4000);
     },
     deleteForm() {
       axios({
         method: "delete",
         url: "https://proyecto-tedw.herokuapp.com/medico/" + this.id_medico,
-        data: {
-          nombre: this.nombre,
-          a_paterno: this.a_paterno,
-          a_materno: this.a_materno,
-          cedula: this.cedula,
-          id_users: this.id_users,
-        },
+       
       })
         .then(function(response) {
           console.log(response);
@@ -163,7 +157,7 @@ setTimeout(function(){location.reload()},5000);
         dismissible: true,
       });
         });
-     setTimeout(function(){location.reload()},5000);
+     setTimeout(function(){location.reload()},4000);
     },
     updateForm() {
       axios
@@ -192,13 +186,36 @@ setTimeout(function(){location.reload()},5000);
         dismissible: true,
       });
         });
-     setTimeout(function(){location.reload()},5000);
+     setTimeout(function(){location.reload()},4000);
     },
   },
   mounted() {
     let medicos = [];
 
-    this.dataTable = $("#user-table").DataTable({});
+    this.dataTable = $("#user-table").DataTable({
+        responsive: "true",
+      dom: "Bfrtilp",
+      buttons: [
+        {
+          extend: "excelHtml5",
+          text: '<i class="fas fa-file-excel"></i> ',
+          titleAttr: "Exportar a Excel",
+          className: "btn btn-success",
+        },
+        {
+          extend: "pdfHtml5",
+          text: '<i class="fas fa-file-pdf"></i> ',
+          titleAttr: "Exportar a PDF",
+          className: "btn btn-danger",
+        },
+        {
+          extend: "print",
+          text: '<i class="fa fa-print"></i> ',
+          titleAttr: "Imprimir",
+          className: "btn btn-info",
+        },
+      ],
+    });
     const url = "https://proyecto-tedw.herokuapp.com/medico";
     fetch(url)
       .then((res) => res.json())

@@ -13,9 +13,16 @@
         </div>
         <div class="col">
           <label>Id usuario</label>
-          <input type="text" class="form-control" v-model="userId" />
+          <input type="number" class="form-control" v-model="userId" />
+        </div>
+        <div class="col">
+          <label>Id rol antiguo</label>
+          <input type="number" class="form-control" v-model="roleId" />
         </div>
       </div>
+      <button class="btn btn-info mr-3" @click="submitForm">
+        Created relation
+      </button>
       <button class="btn btn-warning mr-3" @click="updateForm">
         Update relation
       </button>
@@ -34,8 +41,8 @@
           >
             <thead class="thead-dark">
               <tr>
-                <th>Id rol</th>
                 <th>Id user</th>
+                <th>Id role</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -51,7 +58,7 @@
 import axios from "axios";
 import Vue from 'vue';
 export default {
-  name: "UsuarioRol",
+  name: "Permisos",
   data() {
     return {
       userId: "",
@@ -68,11 +75,12 @@ export default {
   },
   methods: {
     submitForm() {
-      this.roleId = this.permiso.id;
+      console.log(this.permiso.id);
+      console.log(this.userId);
       axios
         .post("https://proyecto-tedw.herokuapp.com/ur", {
-          roleId: this.roleId,
-          userId: this.userId
+          roleid: this.permiso.id,
+          userid: this.userId
         })
         .then(function(response) {
           console.log(response);
@@ -92,17 +100,12 @@ export default {
         dismissible: true,
       });
         });
-     setTimeout(function(){location.reload()},5000);
+    //  setTimeout(function(){location.reload()},5000);
     },
     deleteForm() {
-      this.roleId = this.permiso.id;
       axios({
         method: "delete",
-        url: "https://proyecto-tedw.herokuapp.com/ur/" + this.userId,
-        data: {
-          roleId: this.roleId,
-          userId: this.userId
-        },
+        url: "https://proyecto-tedw.herokuapp.com/ur/"+ this.roleId+"/"+this.userId
       })
         .then(function(response) {
           console.log(response);
@@ -123,20 +126,19 @@ export default {
         dismissible: true,
       });
         });
-    setTimeout(function(){location.reload()},5000);
+    // setTimeout(function(){location.reload()},5000);
     },
     updateForm() {
-      this.roleId = this.permiso.id;
       axios
-        .put("https://proyecto-tedw.herokuapp.com/ur/" + this.userId, {
-          roleId: this.roleId,
-          userId: this.userId
+        .put("https://proyecto-tedw.herokuapp.com/ur/" + this.roleId+"/"+this.userId, {
+          roleid: this.permiso.id,
+          userid: this.userId
         })
         .then(function(response) {
           console.log(response);
           Vue.$toast.open({
-        message: "borrado existoso recarga la pagina",
-        type: "error",
+        message: "actualizado existoso recarga la pagina",
+        type: "warning",
         duration: 5000,
         dismissible: true,
       });
@@ -150,13 +152,15 @@ export default {
         dismissible: true,
       });
         });
-    setTimeout(function(){location.reload()},5000);
+    // setTimeout(function(){location.reload()},5000);
     },
   },
  mounted() {
     let users_roles = [];
     let roles = [];
-    this.dataTable = $("#user-table").DataTable({});
+    this.dataTable = $("#user-table").DataTable({
+      
+    });
     const url = "https://proyecto-tedw.herokuapp.com/ur";
     fetch(url)
       .then((res) => res.json())
@@ -167,8 +171,8 @@ export default {
         users_roles.forEach((user_rol) => {
           this.dataTable.row
             .add([
-              user_rol.roleId,
               user_rol.userId,
+              user_rol.roleId,
             ])
             .draw(false);
         });
