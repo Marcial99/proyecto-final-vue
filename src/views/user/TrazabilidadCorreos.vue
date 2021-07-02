@@ -35,13 +35,20 @@
       </div>
       <div class="text-center">
         <button
-          class="btn btn-primary mt-2 col-md-6 "
+          class="btn btn-primary mt-2 col-md-6"
           type="submit"
           @click.prevent="procesarFormulario"
           :disabled="bloquear"
         >
           Enviar
         </button>
+      </div>
+      <div class="text-left">
+        <router-link to="/user">
+          <button type="button" class="btn btn-danger rounded font-weight-bold">
+            Finalizar
+          </button>
+        </router-link>
       </div>
       <hr />
     </form>
@@ -86,11 +93,11 @@ export default {
             id_prueba: this.id_prueba,
             correo: this.correo.correos[i],
           })
-          .then(function(response) {
+          .then(function (response) {
             console.log(response);
-            // location.reload();
+            location.reload();
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.log(error);
           });
         this.$toast.open({
@@ -113,10 +120,10 @@ export default {
           id_users: this.id_users,
           status: "correos",
         })
-        .then(function(response) {
+        .then(function (response) {
           console.log(response);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     },
