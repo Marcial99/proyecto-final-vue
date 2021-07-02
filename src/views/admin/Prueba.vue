@@ -239,7 +239,7 @@ setTimeout(function(){location.reload()},5000);
               prueba.id_prueba,
               prueba.tipo_prueba,
               prueba.resultado,
-              prueba.documento,
+               `<a href="${prueba.documento}" target="_blank" rel="noopener noreferrer">`+prueba.documento+'</a>',
               prueba.status,
               prueba.id_medico,
               prueba.id_users,

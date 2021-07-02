@@ -59,6 +59,8 @@ export default {
   components: {},
   data() {
     return {
+      docurl:"",
+     email:this.$store.state.auth.user.email,
       id_prueba: this.$route.query.id_prueba,
       tipo_prueba: this.$route.query.tipo_prueba,
       resultado: this.$route.query.resultado,
@@ -73,18 +75,20 @@ export default {
   },
   methods: {
     onUpload1() {
+      console.log(this.docurl);
       axios
         .put("https://proyecto-tedw.herokuapp.com/prueba/" + this.id_prueba, {
           id_prueba: this.id_prueba,
           tipo_prueba: this.tipo_prueba,
           resultado: this.resultado,
-          documento: document.getElementById("exampleInputPassword1").files[0]
-            .name,
+          // documento: document.getElementById("exampleInputPassword1").files[0].name,
+          documento:this.docurl,
           id_medico: this.id_medico,
           id_users: this.id_users,
           status: this.status,
         })
         .then((response) => {
+          console.log(this.docurl);
           console.log(response);
           this.activado = true;
           Swal.fire({
@@ -116,11 +120,11 @@ export default {
       var n = Date.now();
       var storageRef = firebase
         .storage()
-        .ref(`/imagenes/${n}_${this.email}.${this.extension}`);
+        .ref(`/imagenes/${n}_medico_${this.email}.${this.extension}`);
       if (this.selectedFile.type == "application/pdf") {
         storageRef = firebase
           .storage()
-          .ref(`/documentos/${n}_${this.email}.${this.extension}`);
+          .ref(`/documentos/${n}_medico_${this.email}.${this.extension}`);
       }
 
       const task = storageRef.put(this.selectedFile);
@@ -139,14 +143,15 @@ export default {
           //downloadUrl
           task.snapshot.ref.getDownloadURL().then((url) => {
             this.picture = url;
-            console.log(this.picture);
+            this.docurl=url;
+this.resultado == "positivo" ? (this.status = "resultado") : (this.status = "resultado");
+            this.onUpload1();
           });
+           this.resultado == "positivo" ? (this.status = "resultado") : (this.status = "resultado");
+
         }
       );
-      this.resultado == "positivo"
-        ? (this.status = "resultado")
-        : (this.status = "resultado");
-      this.onUpload1();
+     
     },
   },
 };
