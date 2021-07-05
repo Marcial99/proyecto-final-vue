@@ -111,7 +111,7 @@
       >
         <div class="link-container">
           <i class="fas fa-history menu-icon"></i>
-          <span class="texto-item"> Hisotiral de correos cerrados</span>
+          <span class="texto-item"> Historial de correos cerrados</span>
         </div>
       </router-link>
 
